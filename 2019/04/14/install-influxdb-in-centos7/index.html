@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/c46aecdc.js","daovoice")
+  daovoice('init', {
+      app_id: "c46aecdc"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.1.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-dog_32px.ico?v=6.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-dog_16px.ico?v=6.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.1.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+<style>
+    .pace .pace-progress {
+        background: #4B0305; /*进度条颜色*/
+        height: 1px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+  <meta name="description" content="InfluxDB 是用Go语言编写的一个开源分布式时序、事件和指标数据库，无需外部依赖。本文主要介绍如何在centos安装influxdb。">
+<meta name="keywords" content="centos,influxdb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="InfluxDB安装部署(CentOS)">
+<meta property="og:url" content="http://easonwy.github.com/2019/04/14/install-influxdb-in-centos7/index.html">
+<meta property="og:site_name" content="Eason&#39;s Notes">
+<meta property="og:description" content="InfluxDB 是用Go语言编写的一个开源分布式时序、事件和指标数据库，无需外部依赖。本文主要介绍如何在centos安装influxdb。">
+<meta property="og:image" content="http://wx3.sinaimg.cn/large/862078b0gy1fwhsmcqqfvj20wy08gdge.jpg">
+<meta property="og:updated_time" content="2019-04-14T13:59:16.206Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="InfluxDB安装部署(CentOS)">
+<meta name="twitter:description" content="InfluxDB 是用Go语言编写的一个开源分布式时序、事件和指标数据库，无需外部依赖。本文主要介绍如何在centos安装influxdb。">
+<meta name="twitter:image" content="http://wx3.sinaimg.cn/large/862078b0gy1fwhsmcqqfvj20wy08gdge.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://easonwy.github.com/2019/04/14/install-influxdb-in-centos7/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>InfluxDB安装部署(CentOS) | Eason's Notes</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a33df49a1446db342f037174a7607fcf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+   
+    <a href="https://github.com/easonwy" class="github-corner" aria-label="View source on Github"><svg width="92" height="92" viewBox="0 0 250 250" style="fill:#151513;color:#fff;position:absolute;top:0;border:0;right:0" aria-hidden="true"><path d="M0 0 115 115 130 115 142 142 250 250 250 0Z"></path><path d="M128.3 109C113.8 99.7 119 89.6 119 89.6 122 82.7 120.5 78.6 120.5 78.6 119.2 72 123.4 76.3 123.4 76.3 127.3 80.9 125.5 87.3 125.5 87.3 122.9 97.6 130.6 101.9 134.4 103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"></path><path d="M115 115C114.9 115.1 118.7 116.5 119.8 115.4L133.7 101.6C136.9 99.2 139.9 98.4 142.2 98.6 133.8 88 127.5 74.4 143.8 58 148.5 53.4 154 51.2 159.7 51 160.3 49.4 163.2 43.6 171.4 40.1 171.4 40.1 176.1 42.5 178.8 56.2 183.1 58.6 187.2 61.8 190.9 65.4 194.5 69 197.7 73.2 200.1 77.6 213.8 80.2 216.3 84.9 216.3 84.9 212.7 93.1 206.9 96 205.4 96.6 205.1 102.4 203 107.8 198.3 112.5 181.9 128.9 168.3 122.5 157.7 114.1 157.9 116.9 156.7 120.9 152.7 124.9L141 136.5C139.8 137.7 141.6 141.9 141.8 141.8Z" fill="currentColor" class="octo-body"></path></svg></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+   
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Eason's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
+      
+        
+        
+          
+  
+  <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+</li>
+
+      
+
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://easonwy.github.com/2019/04/14/install-influxdb-in-centos7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eason Wu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Eason's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">InfluxDB安装部署(CentOS)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T21:56:32+08:00">2019-04-14</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/14/install-influxdb-in-centos7/" class="leancloud_visitors" data-flag-title="InfluxDB安装部署(CentOS)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">InfluxDB 是用Go语言编写的一个开源分布式时序、事件和指标数据库，无需外部依赖。本文主要介绍如何在centos安装influxdb。</div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="InfluxDB简介"><a href="#InfluxDB简介" class="headerlink" title="InfluxDB简介"></a>InfluxDB简介</h1><p>InfluxDB 是用Go语言编写的一个开源分布式时序、事件和指标数据库，无需外部依赖。</p>
+<h3 id="主要功能："><a href="#主要功能：" class="headerlink" title="主要功能："></a>主要功能：</h3><ul>
+<li>基于时间序列（Time Series），支持与时间有关的相关函数（如最大，最小，求和等）</li>
+<li>可度量性（Metrics）：你可以实时对大量数据进行计算</li>
+<li>基于事件（Eevents）：它支持任意的事件数据</li>
+</ul>
+<h3 id="主要特点："><a href="#主要特点：" class="headerlink" title="主要特点："></a>主要特点：</h3><ul>
+<li>无结构（无模式）：可以是任意数量的列<br>可拓展的</li>
+<li>支持min, max, sum, count, mean, median 等一系列函数，方便统计</li>
+<li>原生的HTTP支持，内置HTTP API</li>
+<li>强大的类SQL语法</li>
+<li>自带管理界面，方便使用</li>
+</ul>
+<h1 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h1><h3 id="官网"><a href="#官网" class="headerlink" title="官网"></a>官网</h3><ul>
+<li><a href="https://portal.influxdata.com/downloads" target="_blank" rel="external">https://portal.influxdata.com/downloads</a></li>
+<li><a href="https://github.com/influxdata/influxdb" target="_blank" rel="external">https://github.com/influxdata/influxdb</a></li>
+<li><a href="https://docs.influxdata.com/influxdb/v1.2/guides/" target="_blank" rel="external">https://docs.influxdata.com/influxdb/v1.2/guides/</a></li>
+</ul>
+<p>目前最新版本为1.6.x，但1.2.x之后的版本将后台web功能关闭了，所以我们此次还是选择1.2.x的版本进行安装。</p>
+<p>在讲解具体的安装步骤之前，先说说influxdb的两个http端口：8083和8086</p>
+<ul>
+<li>port 8083：管理页面端口，访问localhost:8083可以进入你本机的influxdb管理页面；</li>
+<li>port 8086：http连接influxdb client端口，一般使用该端口往本机的influxdb读写数据。</li>
+</ul>
+<h3 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h3><ul>
+<li>本次安装的系统环境为CentOS 7.6，其他系统的安装基本上也类似, IP:192.168.56.32 (此处为虚拟机)</li>
+<li>influxdb 1.2.4</li>
+</ul>
+<h3 id="YUM包安装"><a href="#YUM包安装" class="headerlink" title="YUM包安装"></a>YUM包安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">wget https://dl.influxdata.com/influxdb/releases/influxdb-1.2.4.x86_64.rpm</div><div class="line">sudo yum localinstall influxdb-1.2.4.x86_64.rpm</div></pre></td></tr></table></figure>
+<h5 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service influxdb start</div></pre></td></tr></table></figure>
+<h5 id="非服务方式启动-influxd"><a href="#非服务方式启动-influxd" class="headerlink" title="非服务方式启动 influxd"></a>非服务方式启动 influxd</h5><p>安装后，在/usr/bin下面有如下文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">influxd    influxdb服务器</div><div class="line">influx      influxdb命令行客户端</div><div class="line">influx_inspect  查看工具</div><div class="line">influx_stress  压力测试工具</div><div class="line">influx_tsm  数据库转换工具（将数据库从b1或bz1格式转换为tsm1格式）</div></pre></td></tr></table></figure></p>
+<p>在/var/lib/influxdb/下面会有如下文件夹：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">data  存放最终存储的数据，文件以.tsm结尾</div><div class="line">meta  存放数据库元数据</div><div class="line">wal  存放预写日志文件</div></pre></td></tr></table></figure></p>
+<p>在/var/log/influxdb下面有如下文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">influxd.log  日志文件</div></pre></td></tr></table></figure>
+<p>在/etc/influxdb下面有如下文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">influxdb.conf  配置文件</div></pre></td></tr></table></figure>
+<p>在/var/run/influxdb/下面有如下文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">influxd.pid  PID文件</div></pre></td></tr></table></figure>
+<h3 id="web管理页面"><a href="#web管理页面" class="headerlink" title="web管理页面"></a>web管理页面</h3><ol>
+<li><p>配置/etc/influxdb/influxdb.conf如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[admin]</div><div class="line">enabled = true</div><div class="line">bind-address = &quot;:8083&quot;</div></pre></td></tr></table></figure>
+</li>
+<li><p>访问<a href="http://192.168.56.32:8083/" target="_blank" rel="external">http://192.168.56.32:8083/</a><br><img src="http://wx3.sinaimg.cn/large/862078b0gy1fwhsmcqqfvj20wy08gdge.jpg" alt=""></p>
+</li>
+</ol>
+<h3 id="源码编译安装"><a href="#源码编译安装" class="headerlink" title="源码编译安装"></a>源码编译安装</h3><ul>
+<li><p>下载解压</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">wget https://github.com/influxdata/influxdb/archive/v1.2.4.tar.gz</div><div class="line">tar -zxvf v1.2.4.tar.gz   /home/influxdb[目标目录]</div></pre></td></tr></table></figure>
+</li>
+<li><p>启动服务</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$: ./home/influxdb/usr/bin/influxd</div></pre></td></tr></table></figure>
+<blockquote>
+<p>启动服务时要确保8080端口没有被占用</p>
+</blockquote>
+<ul>
+<li><p>启动客户端</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$: ./home/influxdb/usr/bin/influx</div></pre></td></tr></table></figure>
+</li>
+<li><p>端口设定</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --add-port=8083/tcp</div><div class="line">firewall-cmd --permanent --add-port=8086/tcp</div></pre></td></tr></table></figure>
+<h3 id="influxdb-conf说明"><a href="#influxdb-conf说明" class="headerlink" title="influxdb.conf说明"></a>influxdb.conf说明</h3><h5 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">reporting-disabled = false  # 该选项用于上报influxdb的使用信息给InfluxData公司，默认值为false</div><div class="line">bind-address = &quot;:8088&quot;  # 备份恢复时使用，默认值为8088</div></pre></td></tr></table></figure>
+<h5 id="meta相关配置"><a href="#meta相关配置" class="headerlink" title="meta相关配置"></a>meta相关配置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[meta]</div><div class="line">dir = &quot;/var/lib/influxdb/meta&quot;  # meta数据存放目录</div><div class="line">retention-autocreate = true  # 用于控制默认存储策略，数据库创建时，会自动生成autogen的存储策略，默认值：true</div><div class="line">logging-enabled = true  # 是否开启meta日志，默认值：true</div></pre></td></tr></table></figure>
+<h5 id="data相关配置"><a href="#data相关配置" class="headerlink" title="data相关配置"></a>data相关配置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[data]</div><div class="line">dir = &quot;/var/lib/influxdb/data&quot;  # 最终数据（TSM文件）存储目录</div><div class="line">wal-dir = &quot;/var/lib/influxdb/wal&quot;  # 预写日志存储目录</div><div class="line">query-log-enabled = true  # 是否开启tsm引擎查询日志，默认值： true</div><div class="line">cache-max-memory-size = 1048576000  # 用于限定shard最大值，大于该值时会拒绝写入，默认值：1000MB，单位：byte</div><div class="line">cache-snapshot-memory-size = 26214400  # 用于设置快照大小，大于该值时数据会刷新到tsm文件，默认值：25MB，单位：byte</div><div class="line">cache-snapshot-write-cold-duration = &quot;10m&quot;  # tsm引擎 snapshot写盘延迟，默认值：10Minute</div><div class="line">compact-full-write-cold-duration = &quot;4h&quot;  # tsm文件在压缩前可以存储的最大时间，默认值：4Hour</div><div class="line">max-series-per-database = 1000000  # 限制数据库的级数，该值为0时取消限制，默认值：1000000</div><div class="line">max-values-per-tag = 100000  # 一个tag最大的value数，0取消限制，默认值：100000</div></pre></td></tr></table></figure>
+<h5 id="coordinator查询管理的配置选项"><a href="#coordinator查询管理的配置选项" class="headerlink" title="coordinator查询管理的配置选项"></a>coordinator查询管理的配置选项</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[coordinator]</div><div class="line">write-timeout = &quot;10s&quot;  # 写操作超时时间，默认值： 10s</div><div class="line">max-concurrent-queries = 0  # 最大并发查询数，0无限制，默认值： 0</div><div class="line">query-timeout = &quot;0s  # 查询操作超时时间，0无限制，默认值：0s</div><div class="line">log-queries-after = &quot;0s&quot;  # 慢查询超时时间，0无限制，默认值：0s</div><div class="line">max-select-point = 0  # SELECT语句可以处理的最大点数（points），0无限制，默认值：0</div><div class="line">max-select-series = 0  # SELECT语句可以处理的最大级数（series），0无限制，默认值：0</div><div class="line">max-select-buckets = 0  # SELECT语句可以处理的最大&quot;GROUP BY time()&quot;的时间周期，0无限制，默认值：0</div></pre></td></tr></table></figure>
+<h5 id="retention旧数据的保留策略"><a href="#retention旧数据的保留策略" class="headerlink" title="retention旧数据的保留策略"></a>retention旧数据的保留策略</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[retention]</div><div class="line">enabled = true  # 是否启用该模块，默认值 ： true</div><div class="line">check-interval = &quot;30m&quot;  # 检查时间间隔，默认值 ：&quot;30m&quot;</div></pre></td></tr></table></figure>
+<h5 id="shard-precreation分区预创建"><a href="#shard-precreation分区预创建" class="headerlink" title="shard-precreation分区预创建"></a>shard-precreation分区预创建</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[monitor]</div><div class="line">store-enabled = true  # 是否启用该模块，默认值 ：true</div><div class="line">store-database = &quot;_internal&quot;  # 默认数据库：&quot;_internal&quot;</div><div class="line">store-interval = &quot;10s  # 统计间隔，默认值：&quot;10s&quot;</div></pre></td></tr></table></figure>
+<h5 id="admin-web管理页面"><a href="#admin-web管理页面" class="headerlink" title="admin web管理页面"></a>admin web管理页面</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[admin]</div><div class="line">enabled = true  # 是否启用该模块，默认值 ： false</div><div class="line">bind-address = &quot;:8083&quot;  # 绑定地址，默认值 ：&quot;:8083&quot;</div><div class="line">https-enabled = false  # 是否开启https ，默认值 ：false</div><div class="line">https-certificate = &quot;/etc/ssl/influxdb.pem&quot;  # https证书路径，默认值：&quot;/etc/ssl/influxdb.pem&quot;</div></pre></td></tr></table></figure>
+<h5 id="Restful-API"><a href="#Restful-API" class="headerlink" title="Restful API"></a>Restful API</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">[http]</div><div class="line">enabled = true  # 是否启用该模块，默认值 ：true</div><div class="line">bind-address = &quot;:8086&quot;  # 绑定地址，默认值：&quot;:8086&quot;</div><div class="line">auth-enabled = false  # 是否开启认证，默认值：false</div><div class="line">realm = &quot;InfluxDB&quot;  # 配置JWT realm，默认值: &quot;InfluxDB&quot;</div><div class="line">log-enabled = true  # 是否开启日志，默认值：true</div><div class="line">write-tracing = false  # 是否开启写操作日志，如果置成true，每一次写操作都会打日志，默认值：false</div><div class="line">pprof-enabled = true  # 是否开启pprof，默认值：true</div><div class="line">https-enabled = false  # 是否开启https，默认值：false</div><div class="line">https-certificate = &quot;/etc/ssl/influxdb.pem&quot;  # 设置https证书路径，默认值：&quot;/etc/ssl/influxdb.pem&quot;</div><div class="line">https-private-key = &quot;&quot;  # 设置https私钥，无默认值</div><div class="line">shared-secret = &quot;&quot;  # 用于JWT签名的共享密钥，无默认值</div><div class="line">max-row-limit = 0  # 配置查询返回最大行数，0无限制，默认值：0</div><div class="line">max-connection-limit = 0  # 配置最大连接数，0无限制，默认值：0</div><div class="line">unix-socket-enabled = false  # 是否使用unix-socket，默认值：false</div><div class="line">bind-socket = &quot;/var/run/influxdb.sock&quot;  # unix-socket路径，默认值：&quot;/var/run/influxdb.sock&quot;</div></pre></td></tr></table></figure>
+<h5 id="subscriber-控制Kapacitor接受数据的配置"><a href="#subscriber-控制Kapacitor接受数据的配置" class="headerlink" title="subscriber 控制Kapacitor接受数据的配置"></a>subscriber 控制Kapacitor接受数据的配置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[subscriber]</div><div class="line">enabled = true  # 是否启用该模块，默认值 ：true</div><div class="line">http-timeout = &quot;30s&quot;  # http超时时间，默认值：&quot;30s&quot;</div><div class="line">insecure-skip-verify = false  # 是否允许不安全的证书</div><div class="line">ca-certs = &quot;&quot;  # 设置CA证书</div><div class="line">write-concurrency = 40  # 设置并发数目，默认值：40</div><div class="line">write-buffer-size = 1000  # 设置buffer大小，默认值：1000</div></pre></td></tr></table></figure>
+<h5 id="graphite-相关配置"><a href="#graphite-相关配置" class="headerlink" title="graphite 相关配置"></a>graphite 相关配置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[[graphite]]</div><div class="line">enabled = false  # 是否启用该模块，默认值 ：false</div><div class="line">database = &quot;graphite&quot;  # 数据库名称，默认值：&quot;graphite&quot;</div><div class="line">retention-policy = &quot;&quot;  # 存储策略，无默认值</div><div class="line">bind-address = &quot;:2003&quot;  # 绑定地址，默认值：&quot;:2003&quot;</div><div class="line">protocol = &quot;tcp&quot;  # 协议，默认值：&quot;tcp&quot;</div><div class="line">consistency-level = &quot;one&quot;  # 一致性级别，默认值：&quot;one</div><div class="line">batch-size = 5000  # 批量size，默认值：5000</div><div class="line">batch-pending = 10  # 配置在内存中等待的batch数，默认值：10</div><div class="line">batch-timeout = &quot;1s&quot;  # 超时时间，默认值：&quot;1s&quot;</div><div class="line">udp-read-buffer = 0  # udp读取buffer的大小，0表示使用操作系统提供的值，如果超过操作系统的默认配置则会出错。 该配置的默认值：0</div><div class="line">separator = &quot;.&quot;  # 多个measurement间的连接符，默认值： &quot;.&quot;</div></pre></td></tr></table></figure>
+<h5 id="collectd"><a href="#collectd" class="headerlink" title="collectd"></a>collectd</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[[collectd]]</div><div class="line">enabled = false  # 是否启用该模块，默认值 ：false</div><div class="line">bind-address = &quot;:25826&quot;  # 绑定地址，默认值： &quot;:25826&quot;</div><div class="line">database = &quot;collectd&quot;  # 数据库名称，默认值：&quot;collectd&quot;</div><div class="line">retention-policy = &quot;&quot;  # 存储策略，无默认值</div><div class="line">typesdb = &quot;/usr/local/share/collectd&quot;  # 路径，默认值：&quot;/usr/share/collectd/types.db&quot;</div><div class="line">auth-file = &quot;/etc/collectd/auth_file&quot;</div><div class="line">batch-size = 5000</div><div class="line">batch-pending = 10</div><div class="line">batch-timeout = &quot;10s&quot;</div><div class="line">read-buffer = 0  # udp读取buffer的大小，0表示使用操作系统提供的值，如果超过操作系统的默认配置则会出错。默认值：0</div></pre></td></tr></table></figure>
+<h5 id="opentsdb"><a href="#opentsdb" class="headerlink" title="opentsdb"></a>opentsdb</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[[opentsdb]]</div><div class="line">enabled = false  # 是否启用该模块，默认值：false</div><div class="line">bind-address = &quot;:4242&quot;  # 绑定地址，默认值：&quot;:4242&quot;</div><div class="line">database = &quot;opentsdb&quot;  # 默认数据库：&quot;opentsdb&quot;</div><div class="line">retention-policy = &quot;&quot;  # 存储策略，无默认值</div><div class="line">consistency-level = &quot;one&quot;  # 一致性级别，默认值：&quot;one&quot;</div><div class="line">tls-enabled = false  # 是否开启tls，默认值：false</div><div class="line">certificate= &quot;/etc/ssl/influxdb.pem&quot;  # 证书路径，默认值：&quot;/etc/ssl/influxdb.pem&quot;</div><div class="line">log-point-errors = true  # 出错时是否记录日志，默认值：true</div><div class="line">batch-size = 1000</div><div class="line">batch-pending = 5</div><div class="line">batch-timeout = &quot;1s&quot;</div></pre></td></tr></table></figure>
+<h5 id="udp"><a href="#udp" class="headerlink" title="udp"></a>udp</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[[udp]]</div><div class="line">enabled = false  # 是否启用该模块，默认值：false</div><div class="line">bind-address = &quot;:8089&quot;  # 绑定地址，默认值：&quot;:8089&quot;</div><div class="line">database = &quot;udp&quot;  # 数据库名称，默认值：&quot;udp&quot;</div><div class="line">retention-policy = &quot;&quot;  # 存储策略，无默认值</div><div class="line">batch-size = 5000</div><div class="line">batch-pending = 10</div><div class="line">batch-timeout = &quot;1s&quot;</div><div class="line">read-buffer = 0  # udp读取buffer的大小，0表示使用操作系统提供的值，如果超过操作系统的默认配置则会出错。 该配置的默认值：0</div></pre></td></tr></table></figure>
+<h5 id="continuous-queries"><a href="#continuous-queries" class="headerlink" title="continuous_queries"></a>continuous_queries</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[continuous_queries]</div><div class="line">enabled = true  # enabled 是否开启CQs，默认值：true</div><div class="line">log-enabled = true  # 是否开启日志，默认值：true</div><div class="line">run-interval = &quot;1s&quot;  # 时间间隔，默认值：&quot;1s&quot;</div></pre></td></tr></table></figure>
+<h3 id="连接influxdb"><a href="#连接influxdb" class="headerlink" title="连接influxdb"></a>连接influxdb</h3><p>用默认的配置文件启动后，输入 influx 命令即可直接连接到本地的influxdb服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ influx</div><div class="line">Connected to http://localhost:8086 version 1.2.4</div><div class="line">InfluxDB shell 1.2.4</div><div class="line">&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="InfluxQL语言介绍"><a href="#InfluxQL语言介绍" class="headerlink" title="InfluxQL语言介绍"></a>InfluxQL语言介绍</h3><p>InfluxDB使用的是一种SQL like的查询语言，叫做InfluxQL。与标准SQL的语法类似，但也有为InfluxDB定制的语法，比较容易上手。比如接下来先创建用户：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">-- 创建一个管理员用户</div><div class="line">CREATE USER &quot;admin&quot; WITH PASSWORD &apos;111111&apos; WITH ALL PRIVILEGES</div><div class="line">-- 创建一个普通用户</div><div class="line">CREATE USER &quot;user&quot; WITH PASSWORD &apos;111111&apos;</div><div class="line">-- 为用户授权读权限</div><div class="line">GRANT READ ON [database] to &quot;user&quot;</div><div class="line">-- 为用户授权写权限</div><div class="line">GRANT WRITE ON [database] to &quot;user&quot;</div></pre></td></tr></table></figure></p>
+<p>修改InfluxDB的配置文件，设置http下的auth-enabled = true，重启后，使用influx命令登录数据库就需要用户名和密码了。（Influx命令实际上也是使用API来操作InfluxDB的，InfluxDB只提供了API接口）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ influx -username admin -password &apos;&apos;</div><div class="line">Connected to http://localhost:8086 version 1.2.x</div><div class="line">InfluxDB shell 1.2.x</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在-password后接空字符串回车后输入密码可以屏蔽掉密码显示，不要直接在-password后跟上密码。</p>
+</blockquote>
+<p>接下来是一系列的创建操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">-- 创建数据库，默认设置</div><div class="line">CREATE DATABASE &quot;foo&quot;</div><div class="line">-- 创建数据库，同时创建一个Retention Policy，这个东西不知道怎么翻译，可以认为是一个DATABASE的属性描述</div><div class="line">-- Retention Policy各部分描述：DURATION为数据存储时长，下面的1d即只存1天的数据；REPLICATION为数据副本，一般在使用集群的时候才会设置为&gt;1；SHARD DURATION为分区间隔，InfluxDB默认对数据分区，下面的30m即对数据每隔30分钟做一个新的分区；Name是RP的名字。</div><div class="line">CREATE DATABASE &quot;bar&quot; WITH DURATION 1d REPLICATION 1 SHARD DURATION 30m NAME &quot;myrp&quot;</div><div class="line"> </div><div class="line">-- 可以单独创建RP，加在已经创建的DB上</div><div class="line">CREATE RETENTION POLICY &quot;events&quot; ON &quot;somedb&quot; DURATION 60m REPLICATION 2 SHARD DURATION 30m</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>InfluxDB还支持其他DDL，具体可猛击<a href="https://docs.influxdata.com/influxdb/v1.2/query_language/spec/#queries" target="_blank" rel="external">https://docs.influxdata.com/influxdb/v1.2/query_language/spec/#queries</a> 查看Influx Reference。</p>
+</blockquote>
+<p>由于InfluxDB的无结构（schemeless）特性，我们不需要预先建表，直接use [ database ]后就可以写入数据了。举个栗子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">INSERT cpu,host=serverA,region=us_west value=0.64</div><div class="line"> </div><div class="line">INSERT temperature,machine=unit42,type=assembly external=25,internal=37</div></pre></td></tr></table></figure>
+<p>面语句中的cpu, temperature为InfluxDB某个database的measurement；host，region，machine，type为对应measurement下的tags；value，external，internal为对应measurement下的field，是measurement的实际值；而INSERT的一行数据称为一个point</p>
+<p>measurement，tags，fields，points与普通的关系型数据库的对应：</p>
+<ul>
+<li>measurement类似于SQL中的table；</li>
+<li>tags类似SQL中的被索引的列；</li>
+<li>fields类似于SQL中没有被索引的列；</li>
+<li>points对应SQL的table中的每行数据。</li>
+</ul>
+<blockquote>
+<p>更详细的介绍猛戳<a href="https://docs.influxdata.com/influxdb/v1.2/concepts/glossary/" target="_blank" rel="external">https://docs.influxdata.com/influxdb/v1.2/concepts/glossary/</a></p>
+</blockquote>
+<p>然后读数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">SELECT &quot;host&quot;, &quot;region&quot;, &quot;value&quot; FROM &quot;cpu&quot;</div><div class="line">SELECT * FROM &quot;temperature&quot;</div><div class="line">-- measurement都可以用正则表示，下面表示读一个db下的所有measurement的数据</div><div class="line">SELECT * FROM /.*/ </div><div class="line">-- 配上where条件</div><div class="line">SELECT &quot;region&quot;, &quot;value&quot; FROM &quot;cpu&quot; where &quot;host&quot; = &quot;server1&quot;</div></pre></td></tr></table></figure>
+<p>在select中使用tags的字段来作为where中的条件最好，因为tags都是有索引的，而field是没有索引的。select的列必须带有一个field，否则是查不出来的。</p>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ul>
+<li><a href="http://www.cnblogs.com/MikeZhang/p/InfluxDBInstall20170206.html" target="_blank" rel="external">http://www.cnblogs.com/MikeZhang/p/InfluxDBInstall20170206.html</a></li>
+<li><a href="http://www.cnblogs.com/shhnwangjian/p/6893862.html" target="_blank" rel="external">http://www.cnblogs.com/shhnwangjian/p/6893862.html</a></li>
+<li><a href="https://docs.influxdata.com/influxdb/v1.2/administration/config/" target="_blank" rel="external">https://docs.influxdata.com/influxdb/v1.2/administration/config/</a></li>
+<li><a href="https://blog.csdn.net/kangkanglou/article/details/74012310" target="_blank" rel="external">https://blog.csdn.net/kangkanglou/article/details/74012310</a></li>
+<li><a href="https://blog.csdn.net/u010185262/article/details/53118711" target="_blank" rel="external">https://blog.csdn.net/u010185262/article/details/53118711</a></li>
+<li><a href="https://docs.influxdata.com/influxdb/v1.2/query_language/spec/#queries" target="_blank" rel="external">https://docs.influxdata.com/influxdb/v1.2/query_language/spec/#queries</a></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+    
+      <div>
+        <div>
+    <div style="margin: 20px 0; text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+</div>
+      </div>
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/centos/" rel="tag"><i class="fa fa-tag"></i> centos</a>
+          
+            <a href="/tags/influxdb/" rel="tag"><i class="fa fa-tag"></i> influxdb</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/14/install-datax-in-centos7/" rel="next" title="centos中编译安装datax">
+                <i class="fa fa-chevron-left"></i> centos中编译安装datax
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU5Mi8xMjEyOA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Eason Wu" />
+            
+              <p class="site-author-name" itemprop="name">Eason Wu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/easonwy" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:easonwu85@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#InfluxDB简介"><span class="nav-number">1.</span> <span class="nav-text">InfluxDB简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主要功能："><span class="nav-number">1.0.1.</span> <span class="nav-text">主要功能：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主要特点："><span class="nav-number">1.0.2.</span> <span class="nav-text">主要特点：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装部署"><span class="nav-number">2.</span> <span class="nav-text">安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#官网"><span class="nav-number">2.0.1.</span> <span class="nav-text">官网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装环境"><span class="nav-number">2.0.2.</span> <span class="nav-text">安装环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#YUM包安装"><span class="nav-number">2.0.3.</span> <span class="nav-text">YUM包安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#启动服务"><span class="nav-number">2.0.3.0.1.</span> <span class="nav-text">启动服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#非服务方式启动-influxd"><span class="nav-number">2.0.3.0.2.</span> <span class="nav-text">非服务方式启动 influxd</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web管理页面"><span class="nav-number">2.0.4.</span> <span class="nav-text">web管理页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码编译安装"><span class="nav-number">2.0.5.</span> <span class="nav-text">源码编译安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#influxdb-conf说明"><span class="nav-number">2.0.6.</span> <span class="nav-text">influxdb.conf说明</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#全局配置"><span class="nav-number">2.0.6.0.1.</span> <span class="nav-text">全局配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#meta相关配置"><span class="nav-number">2.0.6.0.2.</span> <span class="nav-text">meta相关配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#data相关配置"><span class="nav-number">2.0.6.0.3.</span> <span class="nav-text">data相关配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#coordinator查询管理的配置选项"><span class="nav-number">2.0.6.0.4.</span> <span class="nav-text">coordinator查询管理的配置选项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#retention旧数据的保留策略"><span class="nav-number">2.0.6.0.5.</span> <span class="nav-text">retention旧数据的保留策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#shard-precreation分区预创建"><span class="nav-number">2.0.6.0.6.</span> <span class="nav-text">shard-precreation分区预创建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#admin-web管理页面"><span class="nav-number">2.0.6.0.7.</span> <span class="nav-text">admin web管理页面</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Restful-API"><span class="nav-number">2.0.6.0.8.</span> <span class="nav-text">Restful API</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#subscriber-控制Kapacitor接受数据的配置"><span class="nav-number">2.0.6.0.9.</span> <span class="nav-text">subscriber 控制Kapacitor接受数据的配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#graphite-相关配置"><span class="nav-number">2.0.6.0.10.</span> <span class="nav-text">graphite 相关配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#collectd"><span class="nav-number">2.0.6.0.11.</span> <span class="nav-text">collectd</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#opentsdb"><span class="nav-number">2.0.6.0.12.</span> <span class="nav-text">opentsdb</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#udp"><span class="nav-number">2.0.6.0.13.</span> <span class="nav-text">udp</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#continuous-queries"><span class="nav-number">2.0.6.0.14.</span> <span class="nav-text">continuous_queries</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接influxdb"><span class="nav-number">2.0.7.</span> <span class="nav-text">连接influxdb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InfluxQL语言介绍"><span class="nav-number">2.0.8.</span> <span class="nav-text">InfluxQL语言介绍</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档"><span class="nav-number">3.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eason Wu</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/reading_progress/reading_progress.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.1.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("RJcyloaaqVU2EDYLipsQXxsT-gzGzoHsz", "jvkJyc2w3aYDSOuGj6LKFAeF");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var newcounter = new Counter();
+              /* Set ACL */
+              var acl = new AV.ACL();
+              acl.setPublicReadAccess(true);
+              acl.setPublicWriteAccess(true);
+              newcounter.setACL(acl);
+              /* End Set ACL */
+              newcounter.set("title", title);
+              newcounter.set("url", url);
+              newcounter.set("time", 1);
+              newcounter.save(null, {
+                success: function(newcounter) {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                },
+                error: function(newcounter, error) {
+                  console.log('Failed to create');
+                }
+              });
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
