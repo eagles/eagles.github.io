@@ -126,24 +126,24 @@
     }
 </style>
 
-  <meta name="description" content="背景很多时候，我们需要将 NSSM简介NSSM安装与基本命令使用NSSM安装Mongodb参考资料">
-<meta name="keywords" content="利器,工具,Windows">
+  <meta name="description" content="centos中编译安装datax">
+<meta name="keywords" content="datax">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NSSM使用总结">
-<meta property="og:url" content="http://easonwy.github.com/2018/06/06/nssm-dev-guide/index.html">
+<meta property="og:title" content="centos">
+<meta property="og:url" content="http://easonwy.github.com/2019/04/14/install-datax-in-centos7/index.html">
 <meta property="og:site_name" content="Eason&#39;s Notes">
-<meta property="og:description" content="背景很多时候，我们需要将 NSSM简介NSSM安装与基本命令使用NSSM安装Mongodb参考资料">
-<meta property="og:updated_time" content="2019-03-02T05:27:07.843Z">
+<meta property="og:description" content="centos中编译安装datax">
+<meta property="og:updated_time" content="2019-04-14T13:44:32.766Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NSSM使用总结">
-<meta name="twitter:description" content="背景很多时候，我们需要将 NSSM简介NSSM安装与基本命令使用NSSM安装Mongodb参考资料">
+<meta name="twitter:title" content="centos">
+<meta name="twitter:description" content="centos中编译安装datax">
 
 
 
 
 
 
-  <link rel="canonical" href="http://easonwy.github.com/2018/06/06/nssm-dev-guide/"/>
+  <link rel="canonical" href="http://easonwy.github.com/2019/04/14/install-datax-in-centos7/"/>
 
 
 
@@ -153,7 +153,7 @@
   };
 </script>
 
-  <title>NSSM使用总结 | Eason's Notes</title>
+  <title>centos | Eason's Notes</title>
   
 
 
@@ -293,7 +293,7 @@
         
           
   
-  <li class="menu-item menu-item-about">
+  <li class="menu-item menu-item-about menu-item-active">
     <a href="/about/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
 </li>
@@ -348,7 +348,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://easonwy.github.com/2018/06/06/nssm-dev-guide/">
+    <link itemprop="mainEntityOfPage" href="http://easonwy.github.com/2019/04/14/install-datax-in-centos7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eason Wu">
@@ -365,7 +365,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">NSSM使用总结</h1>
+          <h1 class="post-title" itemprop="name headline">centos</h1>
         
 
         <div class="post-meta">
@@ -377,7 +377,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T19:03:42+08:00">2018-06-06</time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T21:06:10+08:00">2019-04-14</time>
             
 
             
@@ -398,7 +398,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/开发工具/" itemprop="url" rel="index"><span itemprop="name">开发工具</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/datax/" itemprop="url" rel="index"><span itemprop="name">datax</span></a></span>
 
                 
                 
@@ -412,7 +412,7 @@
 
           
           
-             <span id="/2018/06/06/nssm-dev-guide/" class="leancloud_visitors" data-flag-title="NSSM使用总结">
+             <span id="/2019/04/14/install-datax-in-centos7/" class="leancloud_visitors" data-flag-title="centos">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -429,6 +429,8 @@
           
 
           
+              <div class="post-description">centos中编译安装datax</div>
+          
 
         </div>
       </header>
@@ -443,8 +445,42 @@
       
 
       
-        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>很多时候，我们需要将</p>
-<h3 id="NSSM简介"><a href="#NSSM简介" class="headerlink" title="NSSM简介"></a>NSSM简介</h3><h3 id="NSSM安装与基本命令"><a href="#NSSM安装与基本命令" class="headerlink" title="NSSM安装与基本命令"></a>NSSM安装与基本命令</h3><h3 id="使用NSSM安装Mongodb"><a href="#使用NSSM安装Mongodb" class="headerlink" title="使用NSSM安装Mongodb"></a>使用NSSM安装Mongodb</h3><h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3>
+        <h3 id="系统环境"><a href="#系统环境" class="headerlink" title="系统环境"></a>系统环境</h3><ul>
+<li>CentOS</li>
+<li>Python 2.6.9</li>
+<li><a href="https://github.com/alibaba/DataX" target="_blank" rel="external">https://github.com/alibaba/DataX</a></li>
+</ul>
+<h3 id="Python安装"><a href="#Python安装" class="headerlink" title="Python安装"></a>Python安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">yum groupinstall -y "development tools"</div><div class="line">yum install -y zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel expat-devel</div><div class="line">yum install -y wget</div><div class="line"></div><div class="line">wget https://www.python.org/ftp/python/2.6.9/Python-2.6.9.tgz</div><div class="line">tar xzvf Python-2.6.9.tgz -C /opt/python/</div><div class="line">cd /opt/python/</div><div class="line">./configure --prefix=/usr/local --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"</div><div class="line">make &amp;&amp; make altinstall</div><div class="line">python -V # 显示python的版本</div></pre></td></tr></table></figure>
+<h3 id="编译DataX"><a href="#编译DataX" class="headerlink" title="编译DataX"></a>编译DataX</h3><h5 id="下载DataX"><a href="#下载DataX" class="headerlink" title="下载DataX"></a>下载DataX</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum install git -y # 如果没有安装git则安装一下</div><div class="line">git clone https://github.com/alibaba/DataX</div></pre></td></tr></table></figure>
+<h5 id="编译DataX-1"><a href="#编译DataX-1" class="headerlink" title="编译DataX"></a>编译DataX</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># 通过maven打包</div><div class="line">$ cd  &#123;DataX_source_code_home&#125;</div><div class="line">$ mvn -U clean package assembly:assembly -Dmaven.test.skip=true</div></pre></td></tr></table></figure>
+<p>打包成功，日志显示如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[INFO] BUILD SUCCESS</div><div class="line">[INFO] -----------------------------------------------------------------</div><div class="line">[INFO] Total time: 08:12 min</div><div class="line">[INFO] Finished at: 2015-12-13T16:26:48+08:00</div><div class="line">[INFO] Final Memory: 133M/960M</div><div class="line">[INFO] -----------------------------------------------------------------</div></pre></td></tr></table></figure>
+<p>打包成功后的DataX包位于 {DataX_source_code_home}/target/datax/datax/ ，结构如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> cd  &#123;DataX_source_code_home&#125;</div><div class="line"><span class="meta">$</span> ls ./target/datax/datax/</div><div class="line">bin		conf		job		lib		log		log_perf	plugin		script		tmp</div></pre></td></tr></table></figure>
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><blockquote>
+<p>这一步其实也不是必须，只是配置上会比较方便</p>
+</blockquote>
+<p><code>vim /etc/profile</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">DATAX_HOME=&#123;DATAX_HOME&#125;</div><div class="line">PATH=$PATH:$JAVA_HOME/bin:$DATAX_HOME/bin:$PATH</div><div class="line">EXPORT DATAX_HOME</div></pre></td></tr></table></figure>
+<p><code>source /etc/profile</code></p>
+<h5 id="常见编译异常"><a href="#常见编译异常" class="headerlink" title="常见编译异常"></a>常见编译异常</h5><p>maven配置阿里云的maven私服</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;mirror&gt;</div><div class="line">        &lt;id&gt;nexus-aliyun&lt;/id&gt;</div><div class="line">        &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;</div><div class="line">        &lt;name&gt;Nexus aliyun&lt;/name&gt;</div><div class="line">        &lt;url&gt;https://maven.aliyun.com/repository/central&lt;/url&gt;</div><div class="line">    &lt;/mirror&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>最好是配置一下，否则一堆报错，解决起来很费事。</p>
+</blockquote>
+<p>本地编译报错无法找到工件com.aliyun.openservices：tablestore-streamclient：jar：1.0.0-SNAPSHOT</p>
+<p>解决方法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">vim $ &#123;DataX_source_code_home&#125; /otsstreamreader/pom.xml </div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;com.aliyun.openservices&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;tablestore-streamclient&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"><span class="meta">#</span> 此处把&lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;改成&lt;version&gt;1.0.0&lt;/version&gt;</div></pre></td></tr></table></figure>
+<p>编译datax odps插件模块报错</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">[ERROR] Failed to execute goal on project odpsreader: Could not resolve dependencies for project com.alibaba.datax:odpsreader:jar:0.0.1-SNAPSHOT: The following artifacts could not be resolved: com.alibaba.datax:datax-common:jar:0.0.1-SNAPSHOT, com.alibaba.external:bouncycastle.provider:jar:1.38-jdk15: Could not find artifact com.alibaba.datax:datax-common:jar:0.0.1-SNAPSHOT in dtwave (http://repo2.dtwave-inc.com/repository/public/) -&gt; [Help 1]</div><div class="line">[ERROR]</div><div class="line">[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.</div><div class="line">[ERROR] Re-run Maven using the -X switch to enable full debug logging.</div><div class="line">[ERROR]</div><div class="line">[ERROR] For more information about the errors and possible solutions, please read the following articles:</div><div class="line">[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/DependencyResolutionException</div><div class="line"><span class="meta"></span></div><div class="line"># 比较过之前odps-sdk-core-0.19.3-public.pom的的依赖是</div><div class="line"></div><div class="line">org.bouncycastle</div><div class="line">bcprov-jdk15on</div><div class="line">1.52</div><div class="line">现在是</div><div class="line"></div><div class="line">com.alibaba.external</div><div class="line">bouncycastle.provider</div><div class="line">1.38-jdk15</div><div class="line"><span class="meta"></span></div><div class="line"># 原因：    后来的这个依赖应该是阿里内部jar，外部仓库无法加载这个jar</div></pre></td></tr></table></figure>
+<p>解决方法：</p>
+<p>修改pom.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">com.aliyun.odps</div><div class="line">odps-sdk-core</div><div class="line">换一下版本 ：0.20.7-public</div></pre></td></tr></table></figure>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a href="https://github.com/alibaba/DataX/blob/master/userGuid.md" target="_blank" rel="external">https://github.com/alibaba/DataX/blob/master/userGuid.md</a></li>
+<li><a href="https://blog.csdn.net/qq_32447301/article/details/82909326" target="_blank" rel="external">https://blog.csdn.net/qq_32447301/article/details/82909326</a></li>
+</ul>
+
       
     </div>
 
@@ -473,11 +509,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/利器/" rel="tag"><i class="fa fa-tag"></i> 利器</a>
-          
-            <a href="/tags/工具/" rel="tag"><i class="fa fa-tag"></i> 工具</a>
-          
-            <a href="/tags/Windows/" rel="tag"><i class="fa fa-tag"></i> Windows</a>
+            <a href="/tags/datax/" rel="tag"><i class="fa fa-tag"></i> datax</a>
           
         </div>
       
@@ -490,8 +522,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/06/hello-world/" rel="next" title="你好，世界！">
-                <i class="fa fa-chevron-left"></i> 你好，世界！
+              <a href="/2019/04/14/install-gradle-in-centos-7/" rel="next" title="Install Gradle in Centos 7">
+                <i class="fa fa-chevron-left"></i> Install Gradle in Centos 7
               </a>
             
           </div>
@@ -499,10 +531,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/02/install-java-jdk-on-centos7/" rel="prev" title="CentOS 7上安装Java JDK">
-                CentOS 7上安装Java JDK <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -585,7 +613,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -631,9 +659,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -682,7 +708,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSSM简介"><span class="nav-number">2.</span> <span class="nav-text">NSSM简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSSM安装与基本命令"><span class="nav-number">3.</span> <span class="nav-text">NSSM安装与基本命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用NSSM安装Mongodb"><span class="nav-number">4.</span> <span class="nav-text">使用NSSM安装Mongodb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统环境"><span class="nav-number">1.</span> <span class="nav-text">系统环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python安装"><span class="nav-number">2.</span> <span class="nav-text">Python安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译DataX"><span class="nav-number">3.</span> <span class="nav-text">编译DataX</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下载DataX"><span class="nav-number">3.0.1.</span> <span class="nav-text">下载DataX</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译DataX-1"><span class="nav-number">3.0.2.</span> <span class="nav-text">编译DataX</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置环境变量"><span class="nav-number">4.</span> <span class="nav-text">配置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#常见编译异常"><span class="nav-number">4.0.1.</span> <span class="nav-text">常见编译异常</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
