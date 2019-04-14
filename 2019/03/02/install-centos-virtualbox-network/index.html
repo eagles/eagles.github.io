@@ -126,19 +126,34 @@
     }
 </style>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Eason&#39;s Notes">
-<meta property="og:url" content="http://easonwy.github.com/index.html">
+  <meta name="description" content="我们学习linux时经常会使用虚拟机，目前最火的虚拟机产品就是VirtualBox和VMware，VirtualBox因为免费开源深受大家的喜爱，而初学者对于如何在虚拟机中设置网络连接时最困惑的，这篇文章就以virtualbox为例，介绍下如何设置网络让linux可以连接外网和部署内网环境。">
+<meta name="keywords" content="centos,virtualbox">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VirtalBox安装CentOS系统及网络设置">
+<meta property="og:url" content="http://easonwy.github.com/2019/03/02/install-centos-virtualbox-network/index.html">
 <meta property="og:site_name" content="Eason&#39;s Notes">
+<meta property="og:description" content="我们学习linux时经常会使用虚拟机，目前最火的虚拟机产品就是VirtualBox和VMware，VirtualBox因为免费开源深受大家的喜爱，而初学者对于如何在虚拟机中设置网络连接时最困惑的，这篇文章就以virtualbox为例，介绍下如何设置网络让linux可以连接外网和部署内网环境。">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/862078b0gy1g0oqohzhpsj20vh0mzdms.jpg">
+<meta property="og:image" content="https://wx3.sinaimg.cn/large/862078b0gy1g0ord3tkmmj20x30jk3z2.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/862078b0gy1g0pwkz6n6bj20hw0fx74g.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/862078b0gy1g0pwlx6in5j20gb0evq30.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/mw690/862078b0gy1g22bvvfqyaj20k20az0su.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/mw690/862078b0gy1g22bwzvsvij20js053q2u.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/mw690/862078b0gy1g22c3f8d71j20x807h3ze.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/mw690/862078b0gy1g22c45kkq0j20k80ca3zd.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/mw690/862078b0gy1g22cog5bojj20jh0b2wej.jpg">
+<meta property="og:updated_time" content="2019-04-14T10:43:58.816Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Eason&#39;s Notes">
+<meta name="twitter:title" content="VirtalBox安装CentOS系统及网络设置">
+<meta name="twitter:description" content="我们学习linux时经常会使用虚拟机，目前最火的虚拟机产品就是VirtualBox和VMware，VirtualBox因为免费开源深受大家的喜爱，而初学者对于如何在虚拟机中设置网络连接时最困惑的，这篇文章就以virtualbox为例，介绍下如何设置网络让linux可以连接外网和部署内网环境。">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/862078b0gy1g0oqohzhpsj20vh0mzdms.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://easonwy.github.com/"/>
+  <link rel="canonical" href="http://easonwy.github.com/2019/03/02/install-centos-virtualbox-network/"/>
 
 
 
@@ -148,7 +163,7 @@
   };
 </script>
 
-  <title>Eason's Notes</title>
+  <title>VirtalBox安装CentOS系统及网络设置 | Eason's Notes</title>
   
 
 
@@ -205,8 +220,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
    
     <a href="https://github.com/easonwy" class="github-corner" aria-label="View source on Github"><svg width="92" height="92" viewBox="0 0 250 250" style="fill:#151513;color:#fff;position:absolute;top:0;border:0;right:0" aria-hidden="true"><path d="M0 0 115 115 130 115 142 142 250 250 250 0Z"></path><path d="M128.3 109C113.8 99.7 119 89.6 119 89.6 122 82.7 120.5 78.6 120.5 78.6 119.2 72 123.4 76.3 123.4 76.3 127.3 80.9 125.5 87.3 125.5 87.3 122.9 97.6 130.6 101.9 134.4 103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"></path><path d="M115 115C114.9 115.1 118.7 116.5 119.8 115.4L133.7 101.6C136.9 99.2 139.9 98.4 142.2 98.6 133.8 88 127.5 74.4 143.8 58 148.5 53.4 154 51.2 159.7 51 160.3 49.4 163.2 43.6 171.4 40.1 171.4 40.1 176.1 42.5 178.8 56.2 183.1 58.6 187.2 61.8 190.9 65.4 194.5 69 197.7 73.2 200.1 77.6 213.8 80.2 216.3 84.9 216.3 84.9 212.7 93.1 206.9 96 205.4 96.6 205.1 102.4 203 107.8 198.3 112.5 181.9 128.9 168.3 122.5 157.7 114.1 157.9 116.9 156.7 120.9 152.7 124.9L141 136.5C139.8 137.7 141.6 141.9 141.8 141.8Z" fill="currentColor" class="octo-body"></path></svg></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
@@ -325,9 +339,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -336,165 +350,7 @@
   
 
   
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://easonwy.github.com/2019/04/14/install-gradle-in-centos-7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Eason Wu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Eason's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/14/install-gradle-in-centos-7/" itemprop="url">Install Gradle in Centos 7</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T18:52:52+08:00">2019-04-14</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/04/14/install-gradle-in-centos-7/" class="leancloud_visitors" data-flag-title="Install Gradle in Centos 7">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          Gradle是java开发的一个编译工具，有时候我们需要在linux中进行源代码编译，这个时候就需要安装gradle，本文主要介绍如何在centos中安装gradle。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/04/14/install-gradle-in-centos-7/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
+    <div class="reading-progress-bar"></div>
   
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -519,9 +375,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/02/install-centos-virtualbox-network/" itemprop="url">VirtalBox安装CentOS系统及网络设置</a></h1>
+          <h1 class="post-title" itemprop="name headline">VirtalBox安装CentOS系统及网络设置</h1>
         
 
         <div class="post-meta">
@@ -585,165 +439,7 @@
           
 
           
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          我们学习linux时经常会使用虚拟机，目前最火的虚拟机产品就是VirtualBox和VMware，VirtualBox因为免费开源深受大家的喜爱，而初学者对于如何在虚拟机中设置网络连接时最困惑的，这篇文章就以virtualbox为例，介绍下如何设置网络让linux可以连接外网和部署内网环境。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/02/install-centos-virtualbox-network/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://easonwy.github.com/2019/03/02/update-centos-hostname/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Eason Wu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Eason's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/02/update-centos-hostname/" itemprop="url">修改CentOS主机名(hostname)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-02T13:32:56+08:00">2019-03-02</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/03/02/update-centos-hostname/" class="leancloud_visitors" data-flag-title="修改CentOS主机名(hostname)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
+              <div class="post-description">我们学习linux时经常会使用虚拟机，目前最火的虚拟机产品就是VirtualBox和VMware，VirtualBox因为免费开源深受大家的喜爱，而初学者对于如何在虚拟机中设置网络连接时最困惑的，这篇文章就以virtualbox为例，介绍下如何设置网络让linux可以连接外网和部署内网环境。</div>
           
 
         </div>
@@ -759,22 +455,80 @@
       
 
       
-        
-          
-          简述学习Linux或在安装一些中间件时，有时候需要修改主机名才可以（比如：rabbitmq集群)，此篇主要介绍如何修改CentOS系统的主机名。
-CentOS 6的修改方法需要修改两处：
+        <h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3><p>我们学习linux时经常会使用虚拟机，目前最火的虚拟机产品就是VirtualBox和VMware，VirtualBox因为免费开源深受大家的喜爱，而初学者对于如何在虚拟机中设置网络连接时最困惑的，这篇文章就以virtualbox为例，介绍下如何设置网络让linux可以连接外网和部署内网环境。</p>
+<h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><p>安装环境及版本信息:</p>
+<table>
+<thead>
+<tr>
+<th>软件环境</th>
+<th>版本</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VirtualBox</td>
+<td>6.0.4</td>
+<td><a href="https://download.virtualbox.org/virtualbox/6.0.4/VirtualBox-6.0.4-128413-Win.exe" target="_blank" rel="external">https://download.virtualbox.org/virtualbox/6.0.4/VirtualBox-6.0.4-128413-Win.exe</a></td>
+</tr>
+<tr>
+<td>CentOS Minimal</td>
+<td>7.3</td>
+<td><a href="http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso" target="_blank" rel="external">http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso</a></td>
+</tr>
+<tr>
+<td>操作系统</td>
+<td>Win 10</td>
+<td>所以此处VirtualBox就下载的时Windows对应的版本。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="VirtualBox安装"><a href="#VirtualBox安装" class="headerlink" title="VirtualBox安装"></a>VirtualBox安装</h4><p>VirtualBox的安装就是普通的windows软件，基本上一路下一步即可。</p>
+<p><img src="https://ws4.sinaimg.cn/large/862078b0gy1g0oqohzhpsj20vh0mzdms.jpg" alt="image"></p>
+<h4 id="在VirtualBox安装CentOS"><a href="#在VirtualBox安装CentOS" class="headerlink" title="在VirtualBox安装CentOS"></a>在VirtualBox安装CentOS</h4><p>虚拟机中安装CentOS其实比较简单，除非有特别的要求，其实就根据向导进行即可。</p>
+<h5 id="加载CentOS镜像文件"><a href="#加载CentOS镜像文件" class="headerlink" title="加载CentOS镜像文件"></a>加载CentOS镜像文件</h5><p>此步骤主要是将CentOS镜像文件加载到VirtualBox，类似我们在Windows安装软件是的ISO光盘文件。具体步骤如下：</p>
+<ol>
+<li>打开VirtualBox，点击管理下拉菜单。</li>
+<li>选择虚拟介质管理选项。</li>
+<li>切换选项页之虚拟光盘。</li>
+<li>点击上方的注册按钮，加载前面下载的ISO文件即可。</li>
+</ol>
+<p><img src="https://wx3.sinaimg.cn/large/862078b0gy1g0ord3tkmmj20x30jk3z2.jpg" alt="image"></p>
+<blockquote>
+<p>这一步其实也可以到启动虚拟机进行安装时进行，虚拟机安装程序如果找不到对应的镜像文件，会提示选择要加载的安装镜像。</p>
+</blockquote>
+<h5 id="创建虚拟机"><a href="#创建虚拟机" class="headerlink" title="创建虚拟机"></a>创建虚拟机</h5><p>创建虚拟机时主要选择对应的Linux版本，VirutalBox会根据我们输入的系统名称猜测对应的系统类型。</p>
+<p><img src="https://ws4.sinaimg.cn/large/862078b0gy1g0pwkz6n6bj20hw0fx74g.jpg" alt="image"></p>
+<p><img src="https://ws2.sinaimg.cn/large/862078b0gy1g0pwlx6in5j20gb0evq30.jpg" alt="image"></p>
+<h5 id="安装虚拟机"><a href="#安装虚拟机" class="headerlink" title="安装虚拟机"></a>安装虚拟机</h5><p>因为前面2.1步骤我们已经将CentOS镜像加载到虚拟光盘列表中了，所以当我们启动虚拟机时系统会自动选择对应的镜像文件，进行安装。安装过程基本上没什么花头，还是按向导进行即可（这点很赞），只需要注意设定好root账户的密码即可。</p>
+<h5 id="启动虚拟机"><a href="#启动虚拟机" class="headerlink" title="启动虚拟机"></a>启动虚拟机</h5><h4 id="设置网络"><a href="#设置网络" class="headerlink" title="设置网络"></a>设置网络</h4><h5 id="使用NAT借用宿主机网络访问外网"><a href="#使用NAT借用宿主机网络访问外网" class="headerlink" title="使用NAT借用宿主机网络访问外网"></a>使用NAT借用宿主机网络访问外网</h5><p>启动网卡</p>
+<p><code>ip a</code> 查看网卡， 如果有网卡没有启动，  使用<code>ifup xxx</code></p>
+<p><img src="https://ws1.sinaimg.cn/mw690/862078b0gy1g22bvvfqyaj20k20az0su.jpg" alt=""></p>
+<p>查看网卡信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls /etc/sysconfig/network-scripts/</div></pre></td></tr></table></figure>
+<p><img src="https://ws1.sinaimg.cn/mw690/862078b0gy1g22bwzvsvij20js053q2u.jpg" alt=""></p>
+<p>修改成自动启动网卡 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/sysconfig/network-scripts/ifcfg-enp0s3</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">TYPE=Ethernet</div><div class="line">PROXY_METHOD=none</div><div class="line">BROWSER_ONLY=no</div><div class="line">BOOTPROTO=dhcp</div><div class="line">DEFROUTE=yes</div><div class="line">IPV4_FAILURE_FATAL=no</div><div class="line">IPV6INIT=yes</div><div class="line">IPV6_AUTOCONF=yes</div><div class="line">IPV6_DEFROUTE=yes</div><div class="line">IPV6_FAILURE_FATAL=no</div><div class="line">IPV6_ADDR_GEN_MODE=stable-privacy</div><div class="line">NAME=enp0s3</div><div class="line">UUID=b2d1d1e3-0275-47cf-80c0-132eade932db</div><div class="line">DEVICE=enp0s3</div><div class="line">ONBOOT=yes</div></pre></td></tr></table></figure>
+<h5 id="HOST-Only设置内网环境"><a href="#HOST-Only设置内网环境" class="headerlink" title="HOST-Only设置内网环境"></a>HOST-Only设置内网环境</h5><p>在VirtualBox上 添加host-only共享网卡</p>
+<p><img src="https://ws1.sinaimg.cn/mw690/862078b0gy1g22c3f8d71j20x807h3ze.jpg" alt=""></p>
+<p>在虚拟机上添加HostOnly网卡</p>
+<p><img src="https://ws3.sinaimg.cn/mw690/862078b0gy1g22c45kkq0j20k80ca3zd.jpg" alt=""></p>
+<p>写入UUID 到enp0s8</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">uuidgen ifcfg-enp0s8 &gt;&gt; /etc/sysconfig/network-scripts/ifcfg-enp0s8</div></pre></td></tr></table></figure>
+<p>修改成自动启动网卡</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/sysconfig/network-scripts/ifcfg-enp0s8</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">TYPE=Ethernet</div><div class="line">PROXY_METHOD=none</div><div class="line">BOOTPORTO=static</div><div class="line">BROADCAST=192.168.56.255</div><div class="line">IPADDR=192.168.56.32</div><div class="line">NETMASK=255.255.255.0</div><div class="line">NETWORK=192.168.56.1</div><div class="line">DEFROUTE=yes</div><div class="line">PEERDNS=yes</div><div class="line">PEERROUTES=yes</div><div class="line">IPV4_FAILURE_FATAL=no</div><div class="line">IPV6INIT=yes</div><div class="line">IPV6_AUTOCONF=yes</div><div class="line">IPV6_DEEFROUTE=yes</div><div class="line">IPV6_PEERDNS=yes</div><div class="line">IPV6_PEERROUTES=yes</div><div class="line">IPV6_FAILURE_FATAL=no</div><div class="line">IPV6_ADDR_GEN_MODE=stable-privacy</div><div class="line">NAME=enp0s8</div><div class="line">DEVICE=enp0s8</div><div class="line">ONBOOT=yes</div><div class="line">UUID=31797a08-32a0-48d5-a137-276fd30ef742</div></pre></td></tr></table></figure>
+<h5 id="重启网卡"><a href="#重启网卡" class="headerlink" title="重启网卡"></a>重启网卡</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service network restart</div></pre></td></tr></table></figure>
+<h4 id="额外说明"><a href="#额外说明" class="headerlink" title="额外说明"></a>额外说明</h4><p>安装iputils工具，主要用于<code>ifconfig</code>命令，</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install iputils</div></pre></td></tr></table></figure>
+<p>安装 ssh 服务, 用于远程登录，比如xshell等工具,</p>
+<p>要确保CentOS7安装了 <code>openssh-server</code>，在终端中输入 <code>yum list installed | grep openssh-server</code></p>
+<p>如果没有输入  <code>yum install openssh-server</code> 安装</p>
+<p>修改 /etc/ssh/sshd_config文件:</p>
+<p><img src="https://ws2.sinaimg.cn/mw690/862078b0gy1g22cog5bojj20jh0b2wej.jpg" alt=""></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl restart sshd</div></pre></td></tr></table></figure>
 
-一处是/etc/sysconfig/network
-另一处是/etc/hosts只修改任一处会导致系统启动异常
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/02/update-centos-hostname/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
       
     </div>
 
@@ -786,6 +540,12 @@ CentOS 6的修改方法需要修改两处：
 
     
     
+      <div>
+        <div>
+    <div style="margin: 20px 0; text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+</div>
+      </div>
+    
 
     
 
@@ -795,337 +555,42 @@ CentOS 6的修改方法需要修改两处：
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://easonwy.github.com/2019/03/02/install-java-jdk-on-centos7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Eason Wu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Eason's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/02/install-java-jdk-on-centos7/" itemprop="url">CentOS 7上安装Java JDK</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-02T13:29:03+08:00">2019-03-02</time>
-            
-
-            
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/centos/" rel="tag"><i class="fa fa-tag"></i> centos</a>
           
-
+            <a href="/tags/virtualbox/" rel="tag"><i class="fa fa-tag"></i> virtualbox</a>
           
-            
-          
-
-          
-          
-             <span id="/2019/03/02/install-java-jdk-on-centos7/" class="leancloud_visitors" data-flag-title="CentOS 7上安装Java JDK">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          作为一个后端开发，安装jdk是我们必须掌握的技能，本文主要介绍如何在centos中安装jdk及配置环境变量。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/02/install-java-jdk-on-centos7/">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/02/update-centos-hostname/" rel="next" title="修改CentOS主机名(hostname)">
+                <i class="fa fa-chevron-left"></i> 修改CentOS主机名(hostname)
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-    
-    
-
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://easonwy.github.com/2018/04/06/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Eason Wu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Eason's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/06/hello-world/" itemprop="url">你好，世界！</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-06T19:03:42+08:00">2018-04-06</time>
+              <a href="/2019/04/14/install-gradle-in-centos-7/" rel="prev" title="Install Gradle in Centos 7">
+                Install Gradle in Centos 7 <i class="fa fa-chevron-right"></i>
+              </a>
             
-
-            
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂记/" itemprop="url" rel="index"><span itemprop="name">杂记</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/04/06/hello-world/" class="leancloud_visitors" data-flag-title="你好，世界！">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-          向世界说一声好2018/04/06——是我宝宝第一个生日, 也是我开始建立自己个人网站的起始日，后面会有很长的路，希望我们能相互学习，相互成长。
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/06/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -1135,14 +600,24 @@ CentOS 6的修改方法需要修改两处：
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTU5Mi8xMjEyOA=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -1163,8 +638,17 @@ CentOS 6的修改方法需要修改两处：
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1264,6 +748,22 @@ CentOS 6的修改方法需要修改两处：
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简述"><span class="nav-number">1.</span> <span class="nav-text">简述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装步骤"><span class="nav-number">2.</span> <span class="nav-text">安装步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#VirtualBox安装"><span class="nav-number">2.1.</span> <span class="nav-text">VirtualBox安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在VirtualBox安装CentOS"><span class="nav-number">2.2.</span> <span class="nav-text">在VirtualBox安装CentOS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#加载CentOS镜像文件"><span class="nav-number">2.2.1.</span> <span class="nav-text">加载CentOS镜像文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建虚拟机"><span class="nav-number">2.2.2.</span> <span class="nav-text">创建虚拟机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装虚拟机"><span class="nav-number">2.2.3.</span> <span class="nav-text">安装虚拟机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启动虚拟机"><span class="nav-number">2.2.4.</span> <span class="nav-text">启动虚拟机</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置网络"><span class="nav-number">2.3.</span> <span class="nav-text">设置网络</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用NAT借用宿主机网络访问外网"><span class="nav-number">2.3.1.</span> <span class="nav-text">使用NAT借用宿主机网络访问外网</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HOST-Only设置内网环境"><span class="nav-number">2.3.2.</span> <span class="nav-text">HOST-Only设置内网环境</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#重启网卡"><span class="nav-number">2.3.3.</span> <span class="nav-text">重启网卡</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#额外说明"><span class="nav-number">2.4.</span> <span class="nav-text">额外说明</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1406,6 +906,10 @@ CentOS 6的修改方法需要修改两处：
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.1.0"></script>
+
+
 
   
 
@@ -1430,6 +934,17 @@ CentOS 6的修改方法需要修改两处：
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
