@@ -126,21 +126,21 @@
     }
 </style>
 
-  <meta name="description" content="查看当前使用的Tomcat版本号Maven Repository中查看比如我们需要查Spring Boot 2.1.4-RELEASE的内嵌Tomcat版本, 可以打开链接：1https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat/2.1.4.RELEASE 如下图， 红框标记的就">
+  <meta name="description" content="本文主要介绍如何查看SpringBoot内嵌的Tomcat版本号，及如何在SpringBoot应用中指定特定Tomcat版本，特别是在我们需要升级Tomcat版本来避免一些严重漏洞，非常关键。">
 <meta name="keywords" content="springboot,tomcat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="查看和指定SpringBoot内嵌Tomcat的版本">
 <meta property="og:url" content="http://easonwy.github.com/2019/04/29/view-and-set-embed-tomcat-version-in-springboot-app/index.html">
 <meta property="og:site_name" content="Eason&#39;s Notes">
-<meta property="og:description" content="查看当前使用的Tomcat版本号Maven Repository中查看比如我们需要查Spring Boot 2.1.4-RELEASE的内嵌Tomcat版本, 可以打开链接：1https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat/2.1.4.RELEASE 如下图， 红框标记的就">
+<meta property="og:description" content="本文主要介绍如何查看SpringBoot内嵌的Tomcat版本号，及如何在SpringBoot应用中指定特定Tomcat版本，特别是在我们需要升级Tomcat版本来避免一些严重漏洞，非常关键。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://wx1.sinaimg.cn/large/68ce759fgy1g2j8yzxxb1j20kp0f3jrp.jpg">
 <meta property="og:image" content="https://wx1.sinaimg.cn/large/68ce759fgy1g2j8zrkafxj20kg0e6aai.jpg">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/68ce759fgy1g2j9owxkj9j211o0hwju7.jpg">
-<meta property="og:updated_time" content="2019-04-29T02:34:30.903Z">
+<meta property="og:updated_time" content="2019-04-29T05:37:47.733Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="查看和指定SpringBoot内嵌Tomcat的版本">
-<meta name="twitter:description" content="查看当前使用的Tomcat版本号Maven Repository中查看比如我们需要查Spring Boot 2.1.4-RELEASE的内嵌Tomcat版本, 可以打开链接：1https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat/2.1.4.RELEASE 如下图， 红框标记的就">
+<meta name="twitter:description" content="本文主要介绍如何查看SpringBoot内嵌的Tomcat版本号，及如何在SpringBoot应用中指定特定Tomcat版本，特别是在我们需要升级Tomcat版本来避免一些严重漏洞，非常关键。">
 <meta name="twitter:image" content="https://wx1.sinaimg.cn/large/68ce759fgy1g2j8yzxxb1j20kp0f3jrp.jpg">
 
 
@@ -434,6 +434,8 @@
           
 
           
+              <div class="post-description">本文主要介绍如何查看SpringBoot内嵌的Tomcat版本号，及如何在SpringBoot应用中指定特定Tomcat版本，特别是在我们需要升级Tomcat版本来避免一些严重漏洞，非常关键。</div>
+          
 
         </div>
       </header>
@@ -460,13 +462,8 @@
 <h3 id="排除SpringBoot的Tomcat，指定Tomcat版本"><a href="#排除SpringBoot的Tomcat，指定Tomcat版本" class="headerlink" title="排除SpringBoot的Tomcat，指定Tomcat版本"></a>排除SpringBoot的Tomcat，指定Tomcat版本</h3><p>有时候我们需要在特定情况下使用特定的Tomcat版本，这时候总不能因为Tomcat就改变SpringBoot的版本，所以可以采用排除SpringBoot中的Tomcat包，然后手动指定Tomcat的版本，当然还要引入Tomcat相关的包。</p>
 <h5 id="Gradle的配置"><a href="#Gradle的配置" class="headerlink" title="Gradle的配置"></a>Gradle的配置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">compile(&apos;org.springframework.boot:spring-boot-starter-web&apos;) &#123;</span><br><span class="line">    exclude module: &quot;spring-boot-starter-tomcat&quot;</span><br><span class="line">&#125;</span><br><span class="line">compile &apos;org.apache.tomcat.embed:tomcat-embed-core:+&apos;</span><br><span class="line">compile &apos;org.apache.tomcat.embed:tomcat-embed-el:+&apos;</span><br><span class="line">compile &apos;org.apache.tomcat.embed:tomcat-embed-logging-juli:+&apos;</span><br><span class="line">compile &apos;org.apache.tomcat.embed:tomcat-embed-websocket:+&apos;</span><br></pre></td></tr></table></figure>
 <p>如果不指定版本，则会使用最新的Tomcat版本, 否则直接指定对应的版本号。</p>
-<h5 id="Maven的配置"><a href="#Maven的配置" class="headerlink" title="Maven的配置"></a>Maven的配置</h5><ol>
-<li><p>在 pom.xml文件里面添加一个标签<properties>，添加期望的版本。</properties></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;tomcat.version&gt;8.0.30&lt;/tomcat.version&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>添加必要的Jar包：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt; </span><br><span class="line">   &lt;groupId&gt;org.apache.tomcat&lt;/groupId&gt; </span><br><span class="line">   &lt;artifactId&gt;tomcat-juli&lt;/artifactId&gt; </span><br><span class="line">   &lt;version&gt;$&#123;tomcat.version&#125;&lt;/version&gt; </span><br><span class="line"> &lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.tomcat.embed&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;tomcat-embed-logging-juli&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;$&#123;tomcat.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></li>
-</ol>
+<h5 id="Maven的配置"><a href="#Maven的配置" class="headerlink" title="Maven的配置"></a>Maven的配置</h5><p>在 pom.xml文件里面添加一个标签<code>&lt;properties&gt;</code>，添加期望的版本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;tomcat.version&gt;8.0.30&lt;/tomcat.version&gt;</span><br></pre></td></tr></table></figure></p>
+<p>添加必要的Jar包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt; </span><br><span class="line">   &lt;groupId&gt;org.apache.tomcat&lt;/groupId&gt; </span><br><span class="line">   &lt;artifactId&gt;tomcat-juli&lt;/artifactId&gt; </span><br><span class="line">   &lt;version&gt;$&#123;tomcat.version&#125;&lt;/version&gt; </span><br><span class="line"> &lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.tomcat.embed&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;tomcat-embed-logging-juli&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;$&#123;tomcat.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
