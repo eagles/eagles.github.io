@@ -141,7 +141,7 @@
 <meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g50ti23d2zj30q00gqaab.jpg">
 <meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g50ti2b51sj30q00f1aah.jpg">
 <meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g50ti2gp23j313b0mfwex.jpg">
-<meta property="og:updated_time" content="2019-07-15T13:02:30.867Z">
+<meta property="og:updated_time" content="2019-07-16T10:39:16.567Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 7中安装和配置Promethues">
 <meta name="twitter:description" content="Prometheus 是什么？Prometheus是一套开源的监控&amp;amp;报警&amp;amp;时间序列数据库的组合，起始是由SoundCloud公司开发的。随着发展，越来越多公司和组织接受采用Prometheus，社区也十分活跃，他们便将它独立成开源项目，并且有公司来运作。google SRE的书内也曾提到跟他们BorgMon监控系统相似的实现是Prometheus。现在最常见的Kubernetes容">
@@ -302,7 +302,7 @@
         
           
   
-  <li class="menu-item menu-item-about">
+  <li class="menu-item menu-item-about menu-item-active">
     <a href="/about/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
 </li>
@@ -501,7 +501,46 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=9090/tcp --permanent</span><br><span class="line"></span><br><span class="line"># 重启防火墙服务</span><br><span class="line">systemctl reload firewalld</span><br></pre></td></tr></table></figure>
 <h4 id="访问页面"><a href="#访问页面" class="headerlink" title="访问页面"></a>访问页面</h4><p>因为我是在虚拟机里安装的，直接在宿主机浏览器中输入: <code>http://192.168.56.2:9090</code>，如果出现以下页面这表示服务正常开启。</p>
 <p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g50qzy9gi1j30yo0hjgly.jpg" alt></p>
-<h3 id="安装exporter"><a href="#安装exporter" class="headerlink" title="安装exporter"></a>安装exporter</h3><p>exporter是prometheus用来收集数据的客户端工具，</p>
+<h3 id="安装exporter"><a href="#安装exporter" class="headerlink" title="安装exporter"></a>安装exporter</h3><p>exporter是prometheus用来收集数据的客户端工具，在prometheus的官网上<a href="https://prometheus.io/download/" target="_blank" rel="noopener">https://prometheus.io/download/</a> 可以下载到很多服务的exporter采集器。以下是我们经常用到的一些采集器：</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Node Exporter</td>
+<td>针对服务器进行监控的探测器（探针）</td>
+<td><a href="https://github.com/prometheus/node_exporter" target="_blank" rel="noopener">https://github.com/prometheus/node_exporter</a></td>
+</tr>
+<tr>
+<td>Alert Manager</td>
+<td>报警相关</td>
+<td><a href="https://github.com/prometheus/alertmanager" target="_blank" rel="noopener">https://github.com/prometheus/alertmanager</a></td>
+</tr>
+<tr>
+<td>Mysql Exporter</td>
+<td>MySQL服务监控相关的探测器</td>
+<td><a href="https://github.com/prometheus/mysqld_exporter" target="_blank" rel="noopener">https://github.com/prometheus/mysqld_exporter</a></td>
+</tr>
+<tr>
+<td>Blackbox Exporter</td>
+<td>黑盒监控解决方案，其允许用户通过：HTTP、HTTPS、DNS、TCP以及ICMP的方式对网络进行探测</td>
+<td><a href="https://github.com/prometheus/blackbox_exporter" target="_blank" rel="noopener">https://github.com/prometheus/blackbox_exporter</a></td>
+</tr>
+<tr>
+<td>jmx_exporter</td>
+<td>JMX服务的探测器</td>
+<td><a href="https://github.com/prometheus/jmx_exporter" target="_blank" rel="noopener">https://github.com/prometheus/jmx_exporter</a></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>具体的可以到我们使用时再行在<a href="https://prometheus.io/download/或github中寻找需要的插件进行安装配置，这里我们就简单介绍几个常用的插件的安装和使用。" target="_blank" rel="noopener">https://prometheus.io/download/或github中寻找需要的插件进行安装配置，这里我们就简单介绍几个常用的插件的安装和使用。</a></p>
+</blockquote>
 <h4 id="node-exporter"><a href="#node-exporter" class="headerlink" title="node_exporter"></a>node_exporter</h4><p>node_exporter是一个服务器端agent，负责采集服务器基础监控项。下面我们就来一步一步安装node_exporter收集所在服务器的性能。</p>
 <h5 id="下载安装包-1"><a href="#下载安装包-1" class="headerlink" title="下载安装包"></a>下载安装包</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz</span><br><span class="line">tar -zvxf node_exporter-0.18.1.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
 <h5 id="添加执行用户"><a href="#添加执行用户" class="headerlink" title="添加执行用户"></a>添加执行用户</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -rs /bin/false nodeusr</span><br></pre></td></tr></table></figure>
@@ -528,6 +567,7 @@
 <p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g50ti23d2zj30q00gqaab.jpg" alt></p>
 <p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g50ti2b51sj30q00f1aah.jpg" alt></p>
 <p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g50ti2gp23j313b0mfwex.jpg" alt></p>
+<h4 id="MySQL-Exporter"><a href="#MySQL-Exporter" class="headerlink" title="MySQL Exporter"></a>MySQL Exporter</h4><h5 id="下载安装包-2"><a href="#下载安装包-2" class="headerlink" title="下载安装包"></a>下载安装包</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul>
 <li><a href="https://prometheus.io/docs/introduction/overview/" target="_blank" rel="noopener">https://prometheus.io/docs/introduction/overview/</a></li>
 <li><a href="https://www.fosslinux.com/10398/how-to-install-and-configure-prometheus-on-centos-7.htm" target="_blank" rel="noopener">https://www.fosslinux.com/10398/how-to-install-and-configure-prometheus-on-centos-7.htm</a></li>
@@ -583,6 +623,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/16/install-grafana-on-centos7/" rel="prev" title="install-grafana-on-centos7">
+                install-grafana-on-centos7 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -663,7 +707,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -725,7 +769,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -774,7 +820,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Prometheus-是什么？"><span class="nav-number">1.</span> <span class="nav-text">Prometheus 是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Prometheus-的优点"><span class="nav-number">1.1.</span> <span class="nav-text">Prometheus 的优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Prometheus-的特性"><span class="nav-number">1.2.</span> <span class="nav-text">Prometheus 的特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Prometheus的架构"><span class="nav-number">1.3.</span> <span class="nav-text">Prometheus的架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Prometheus使用的场景"><span class="nav-number">1.4.</span> <span class="nav-text">Prometheus使用的场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Prometheus的安装"><span class="nav-number">2.</span> <span class="nav-text">Prometheus的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基础准备"><span class="nav-number">2.1.</span> <span class="nav-text">基础准备</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#禁用SELinux"><span class="nav-number">2.1.1.</span> <span class="nav-text">禁用SELinux</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#同步时区（-设置系统时区为上海）"><span class="nav-number">2.1.2.</span> <span class="nav-text">同步时区（ 设置系统时区为上海）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载安装包"><span class="nav-number">2.2.</span> <span class="nav-text">下载安装包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建执行用户"><span class="nav-number">2.3.</span> <span class="nav-text">创建执行用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建执行目录"><span class="nav-number">2.4.</span> <span class="nav-text">创建执行目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改目录权限（更改所有者）"><span class="nav-number">2.5.</span> <span class="nav-text">修改目录权限（更改所有者）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复制文件到执行目录"><span class="nav-number">2.6.</span> <span class="nav-text">复制文件到执行目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加配置文件"><span class="nav-number">2.7.</span> <span class="nav-text">添加配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建服务"><span class="nav-number">2.8.</span> <span class="nav-text">创建服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动服务"><span class="nav-number">2.9.</span> <span class="nav-text">启动服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置服务开机启动"><span class="nav-number">2.10.</span> <span class="nav-text">设置服务开机启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#防火墙设置"><span class="nav-number">2.11.</span> <span class="nav-text">防火墙设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问页面"><span class="nav-number">2.12.</span> <span class="nav-text">访问页面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装exporter"><span class="nav-number">3.</span> <span class="nav-text">安装exporter</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#node-exporter"><span class="nav-number">3.1.</span> <span class="nav-text">node_exporter</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下载安装包-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">下载安装包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#添加执行用户"><span class="nav-number">3.1.2.</span> <span class="nav-text">添加执行用户</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#复制执行文件"><span class="nav-number">3.1.3.</span> <span class="nav-text">复制执行文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建系统服务"><span class="nav-number">3.1.4.</span> <span class="nav-text">创建系统服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启动服务-1"><span class="nav-number">3.1.5.</span> <span class="nav-text">启动服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置服务开机自启动"><span class="nav-number">3.1.6.</span> <span class="nav-text">设置服务开机自启动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开启防火墙"><span class="nav-number">3.1.7.</span> <span class="nav-text">开启防火墙</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看服务"><span class="nav-number">3.1.8.</span> <span class="nav-text">查看服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#将node-exporter加入prometheus的配置"><span class="nav-number">3.1.9.</span> <span class="nav-text">将node_exporter加入prometheus的配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#prometheus中查看node-exporter的数据"><span class="nav-number">3.1.10.</span> <span class="nav-text">prometheus中查看node_exporter的数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文档"><span class="nav-number">4.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Prometheus-是什么？"><span class="nav-number">1.</span> <span class="nav-text">Prometheus 是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Prometheus-的优点"><span class="nav-number">1.1.</span> <span class="nav-text">Prometheus 的优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Prometheus-的特性"><span class="nav-number">1.2.</span> <span class="nav-text">Prometheus 的特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Prometheus的架构"><span class="nav-number">1.3.</span> <span class="nav-text">Prometheus的架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Prometheus使用的场景"><span class="nav-number">1.4.</span> <span class="nav-text">Prometheus使用的场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Prometheus的安装"><span class="nav-number">2.</span> <span class="nav-text">Prometheus的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基础准备"><span class="nav-number">2.1.</span> <span class="nav-text">基础准备</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#禁用SELinux"><span class="nav-number">2.1.1.</span> <span class="nav-text">禁用SELinux</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#同步时区（-设置系统时区为上海）"><span class="nav-number">2.1.2.</span> <span class="nav-text">同步时区（ 设置系统时区为上海）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载安装包"><span class="nav-number">2.2.</span> <span class="nav-text">下载安装包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建执行用户"><span class="nav-number">2.3.</span> <span class="nav-text">创建执行用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建执行目录"><span class="nav-number">2.4.</span> <span class="nav-text">创建执行目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改目录权限（更改所有者）"><span class="nav-number">2.5.</span> <span class="nav-text">修改目录权限（更改所有者）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复制文件到执行目录"><span class="nav-number">2.6.</span> <span class="nav-text">复制文件到执行目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加配置文件"><span class="nav-number">2.7.</span> <span class="nav-text">添加配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建服务"><span class="nav-number">2.8.</span> <span class="nav-text">创建服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动服务"><span class="nav-number">2.9.</span> <span class="nav-text">启动服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置服务开机启动"><span class="nav-number">2.10.</span> <span class="nav-text">设置服务开机启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#防火墙设置"><span class="nav-number">2.11.</span> <span class="nav-text">防火墙设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问页面"><span class="nav-number">2.12.</span> <span class="nav-text">访问页面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装exporter"><span class="nav-number">3.</span> <span class="nav-text">安装exporter</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#node-exporter"><span class="nav-number">3.1.</span> <span class="nav-text">node_exporter</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下载安装包-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">下载安装包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#添加执行用户"><span class="nav-number">3.1.2.</span> <span class="nav-text">添加执行用户</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#复制执行文件"><span class="nav-number">3.1.3.</span> <span class="nav-text">复制执行文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建系统服务"><span class="nav-number">3.1.4.</span> <span class="nav-text">创建系统服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启动服务-1"><span class="nav-number">3.1.5.</span> <span class="nav-text">启动服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置服务开机自启动"><span class="nav-number">3.1.6.</span> <span class="nav-text">设置服务开机自启动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开启防火墙"><span class="nav-number">3.1.7.</span> <span class="nav-text">开启防火墙</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看服务"><span class="nav-number">3.1.8.</span> <span class="nav-text">查看服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#将node-exporter加入prometheus的配置"><span class="nav-number">3.1.9.</span> <span class="nav-text">将node_exporter加入prometheus的配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#prometheus中查看node-exporter的数据"><span class="nav-number">3.1.10.</span> <span class="nav-text">prometheus中查看node_exporter的数据</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL-Exporter"><span class="nav-number">3.2.</span> <span class="nav-text">MySQL Exporter</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下载安装包-2"><span class="nav-number">3.2.1.</span> <span class="nav-text">下载安装包</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文档"><span class="nav-number">4.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
             
 
           </div>
