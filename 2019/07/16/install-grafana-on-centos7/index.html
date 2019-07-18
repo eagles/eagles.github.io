@@ -144,7 +144,7 @@
 <meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g51vetf126j311u0dl75o.jpg">
 <meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g51v3tohjoj30t70fawf0.jpg">
 <meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g51v61ickvj30u40j9taj.jpg">
-<meta property="og:updated_time" content="2019-07-17T07:51:35.134Z">
+<meta property="og:updated_time" content="2019-07-18T03:10:29.525Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 7中安装和配置Grafana">
 <meta name="twitter:description" content="Grafana是什么?Grafana是一个跨平台的开源的度量分析和可视化工具，可以通过将采集的数据查询然后可视化的展示，并及时通知。它主要有以下六大特点：  展示方式：快速灵活的客户端图表，面板插件有许多不同方式的可视化指标和日志，官方库中具有丰富的仪表盘插件，比如热图、折线图、图表等多种展示方式； 数据源：Graphite，InfluxDB，OpenTSDB，Prometheus，Elastic">
@@ -303,7 +303,7 @@
         
           
   
-  <li class="menu-item menu-item-about menu-item-active">
+  <li class="menu-item menu-item-about">
     <a href="/about/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
 </li>
@@ -505,20 +505,27 @@
 <h4 id="透过二进制包安装"><a href="#透过二进制包安装" class="headerlink" title="透过二进制包安装"></a>透过二进制包安装</h4><p>二进制安装会比较麻烦，建议还是使用yum包安装如果网络允许的话。</p>
 <h5 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /data2/software/</span><br><span class="line"></span><br><span class="line">wget https://dl.grafana.com/oss/release/grafana-6.2.5.linux-amd64.tar.gz </span><br><span class="line">tar -zxvf grafana-6.2.5.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
 <h5 id="添加执行用户"><a href="#添加执行用户" class="headerlink" title="添加执行用户"></a>添加执行用户</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -rs /bin/false grafana</span><br></pre></td></tr></table></figure>
-<h5 id="配置执行目录及权限"><a href="#配置执行目录及权限" class="headerlink" title="配置执行目录及权限"></a>配置执行目录及权限</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv grafana-6.2.5.linux-amd64 /usr/local/grafana</span><br><span class="line">chown -R grafana:grafana /usr/local/grafana</span><br></pre></td></tr></table></figure>
+<h5 id="配置执行目录及权限"><a href="#配置执行目录及权限" class="headerlink" title="配置执行目录及权限"></a>配置执行目录及权限</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv grafana-6.2.5.linux-amd64 /usr/local/grafana</span><br><span class="line">chown -R grafana:grafana /usr/local/grafana</span><br></pre></td></tr></table></figure>
 <h5 id="创建系统服务"><a href="#创建系统服务" class="headerlink" title="创建系统服务"></a>创建系统服务</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/systemd/system/grafana-server.service</span><br></pre></td></tr></table></figure>
 <p>内容如下: </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Grafana Server</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=grafana</span><br><span class="line">Group=grafana</span><br><span class="line">Type=notify</span><br><span class="line">ExecStart=/usr/local/grafana/bin/grafana-server -homepath /usr/local/grafana</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 <p>保存退出, 执行reload命令属性服务配置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl deamon-reload</span><br></pre></td></tr></table></figure>
 <h4 id="创建一个存储grafana的MySQL数据库"><a href="#创建一个存储grafana的MySQL数据库" class="headerlink" title="创建一个存储grafana的MySQL数据库"></a>创建一个存储grafana的MySQL数据库</h4><p>grafana默认是使用sqlite3作为数据存储的载体，我们这里将其替换为我们熟悉的mysql，方便后期运维等。</p>
-<h5 id="创建数据库及执行用户"><a href="#创建数据库及执行用户" class="headerlink" title="创建数据库及执行用户"></a>创建数据库及执行用户</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 登录mysql命令行</span><br><span class="line">mysql -uroot -p</span><br><span class="line"><span class="meta">#</span> 创建数据库</span><br><span class="line">create database grafana default character set utf8;</span><br><span class="line"><span class="meta">#</span> 创建用户</span><br><span class="line">create user grafana IDENTIFIED by '123456';</span><br><span class="line"><span class="meta">#</span> 设置权限</span><br><span class="line">GRANT ALL ON grafana.* TO grafana@'localhost' WITH GRANT option;</span><br><span class="line"><span class="meta">#</span> 刷新权限</span><br><span class="line">flush PRIVILEGES;</span><br></pre></td></tr></table></figure>
+<h5 id="创建数据库及执行用户"><a href="#创建数据库及执行用户" class="headerlink" title="创建数据库及执行用户"></a>创建数据库及执行用户</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 登录mysql命令行</span><br><span class="line">mysql -uroot -p</span><br><span class="line"><span class="meta">#</span> 创建数据库</span><br><span class="line">create database grafana default character set utf8;</span><br><span class="line"><span class="meta">#</span> 删除用户及权限</span><br><span class="line">drop user grafana@'localhost';</span><br><span class="line"><span class="meta">#</span> 创建用户</span><br><span class="line">create user grafana@'localhost' IDENTIFIED by '123456';</span><br><span class="line"><span class="meta">#</span> 设置权限</span><br><span class="line">GRANT ALL ON grafana.* TO grafana@'localhost' WITH GRANT option;</span><br><span class="line"><span class="meta">#</span> 刷新权限</span><br><span class="line">flush PRIVILEGES;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里要注意一下，因为我们的mysql与grafana安装在同一台机器，所以可以之设置localhost的权限即可。当我们的grafana和mysql在不同节点时，可以设置grafana所以机器的权限或<code>grant to grafana@&#39;%&#39;</code>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> # 创建用户</span><br><span class="line"><span class="meta">&gt;</span> create user grafana@'%' IDENTIFIED by '123456';</span><br><span class="line"><span class="meta">&gt;</span> # 设置权限</span><br><span class="line"><span class="meta">&gt;</span> GRANT ALL ON grafana.* TO grafana@'%' WITH GRANT option;</span><br><span class="line"><span class="meta">&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
 <h5 id="更改grafana配置文件"><a href="#更改grafana配置文件" class="headerlink" title="更改grafana配置文件"></a>更改grafana配置文件</h5><p><strong>yum安装时：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/grafana/grafana.ini</span><br></pre></td></tr></table></figure>
 <p><strong>二进制安装:</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/local/grafana/conf/default.ini</span><br></pre></td></tr></table></figure>
 <p>更新database配置节的内容，更新存储类型及设定。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">[database]</span><br><span class="line"># You can configure the database connection by specifying type, host, name, user and password</span><br><span class="line"># as separate properties or as on string using the url properties.</span><br><span class="line"></span><br><span class="line"># Either &quot;mysql&quot;, &quot;postgres&quot; or &quot;sqlite3&quot;, it&apos;s your choice</span><br><span class="line">;type = mysql</span><br><span class="line">;host = 127.0.0.1:3306</span><br><span class="line">;name = grafana</span><br><span class="line">;user = grafana</span><br><span class="line"># If the password contains # or ; you have to wrap it with triple quotes. Ex &quot;&quot;&quot;#password;&quot;&quot;&quot;</span><br><span class="line">;password =123456</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>;</code>是grafana配置文件注释的语法，具体额可以参考<a href="https://grafana.com/docs/installation/configuration/。" target="_blank" rel="noopener">https://grafana.com/docs/installation/configuration/。</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">[database]</span><br><span class="line"># You can configure the database connection by specifying type, host, name, user and password</span><br><span class="line"># as separate properties or as on string using the url properties.</span><br><span class="line"></span><br><span class="line"># Either &quot;mysql&quot;, &quot;postgres&quot; or &quot;sqlite3&quot;, it&apos;s your choice</span><br><span class="line">type = mysql</span><br><span class="line">host = 127.0.0.1:3306</span><br><span class="line">name = grafana</span><br><span class="line">user = grafana</span><br><span class="line"># If the password contains # or ; you have to wrap it with triple quotes. Ex &quot;&quot;&quot;#password;&quot;&quot;&quot;</span><br><span class="line">password =123456</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>保存退出。</p>
 <h4 id="安装额外的字体文件"><a href="#安装额外的字体文件" class="headerlink" title="安装额外的字体文件"></a>安装额外的字体文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install fontconfig</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install freetype*</span><br></pre></td></tr></table></figure>
@@ -584,13 +591,6 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\04\14\install-gradle-in-centos-7\" rel="bookmark">Install Gradle in Centos 7</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
       <div class="popular-posts-title"><a href="\2019\03\02\install-java-jdk-on-centos7\" rel="bookmark">CentOS 7上安装Java JDK</a></div>
       
     </li>
@@ -598,7 +598,14 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\04\14\install-influxdb-in-centos7\" rel="bookmark">InfluxDB安装部署(CentOS)</a></div>
+      <div class="popular-posts-title"><a href="\2019\04\14\install-gradle-in-centos-7\" rel="bookmark">Install Gradle in Centos 7</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\2019\03\02\update-centos-hostname\" rel="bookmark">修改CentOS主机名(hostname)</a></div>
       
     </li>
   
