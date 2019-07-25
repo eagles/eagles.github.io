@@ -126,35 +126,28 @@
     }
 </style>
 
-  <meta name="description" content="我们学习linux时经常会使用虚拟机，目前最火的虚拟机产品就是VirtualBox和VMware，VirtualBox因为免费开源深受大家的喜爱，而初学者对于如何在虚拟机中设置网络连接时最困惑的，这篇文章就以virtualbox为例，介绍下如何设置网络让linux可以连接外网和部署内网环境。">
-<meta name="keywords" content="centos,virtualbox">
+  <meta name="description" content="前言最近学习使用grafana的过程中，涉及到需要编译grafana源码的场景，因为grafana是使用go语言进行开发的，因为众所周知的原因，国内很多网站无法访问，导致编译起来比较累，本文主要总结一下如果在Windows和CentOS上进行go语言环境的搭建和配置。 Go资源下载 官网： https://golang.org/ 国内资源站台： https://studygolang.com/dl">
+<meta name="keywords" content="go,environment">
 <meta property="og:type" content="article">
-<meta property="og:title" content="VirtalBox安装CentOS系统及网络设置">
-<meta property="og:url" content="http://easonwy.github.com/2019/03/02/install-centos-virtualbox-network/index.html">
+<meta property="og:title" content="构建GO语言编译运行环境">
+<meta property="og:url" content="http://easonwu.me/2019/07/build-go-build-environment.html">
 <meta property="og:site_name" content="光脚码农笔记">
-<meta property="og:description" content="我们学习linux时经常会使用虚拟机，目前最火的虚拟机产品就是VirtualBox和VMware，VirtualBox因为免费开源深受大家的喜爱，而初学者对于如何在虚拟机中设置网络连接时最困惑的，这篇文章就以virtualbox为例，介绍下如何设置网络让linux可以连接外网和部署内网环境。">
+<meta property="og:description" content="前言最近学习使用grafana的过程中，涉及到需要编译grafana源码的场景，因为grafana是使用go语言进行开发的，因为众所周知的原因，国内很多网站无法访问，导致编译起来比较累，本文主要总结一下如果在Windows和CentOS上进行go语言环境的搭建和配置。 Go资源下载 官网： https://golang.org/ 国内资源站台： https://studygolang.com/dl">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/862078b0gy1g0oqohzhpsj20vh0mzdms.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/862078b0gy1g0ord3tkmmj20x30jk3z2.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/862078b0gy1g0pwkz6n6bj20hw0fx74g.jpg">
-<meta property="og:image" content="https://ws2.sinaimg.cn/large/862078b0gy1g0pwlx6in5j20gb0evq30.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/mw690/862078b0gy1g22bvvfqyaj20k20az0su.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/mw690/862078b0gy1g22bwzvsvij20js053q2u.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/mw690/862078b0gy1g22c3f8d71j20x807h3ze.jpg">
-<meta property="og:image" content="https://ws3.sinaimg.cn/mw690/862078b0gy1g22c45kkq0j20k80ca3zd.jpg">
-<meta property="og:image" content="https://ws2.sinaimg.cn/mw690/862078b0gy1g22cog5bojj20jh0b2wej.jpg">
-<meta property="og:updated_time" content="2019-04-14T10:43:58.816Z">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g58fpw2sryj30t20hdjs2.jpg">
+<meta property="og:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g58kp6l8yaj30k1033q3u.jpg">
+<meta property="og:updated_time" content="2019-07-22T06:58:52.488Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VirtalBox安装CentOS系统及网络设置">
-<meta name="twitter:description" content="我们学习linux时经常会使用虚拟机，目前最火的虚拟机产品就是VirtualBox和VMware，VirtualBox因为免费开源深受大家的喜爱，而初学者对于如何在虚拟机中设置网络连接时最困惑的，这篇文章就以virtualbox为例，介绍下如何设置网络让linux可以连接外网和部署内网环境。">
-<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/862078b0gy1g0oqohzhpsj20vh0mzdms.jpg">
+<meta name="twitter:title" content="构建GO语言编译运行环境">
+<meta name="twitter:description" content="前言最近学习使用grafana的过程中，涉及到需要编译grafana源码的场景，因为grafana是使用go语言进行开发的，因为众所周知的原因，国内很多网站无法访问，导致编译起来比较累，本文主要总结一下如果在Windows和CentOS上进行go语言环境的搭建和配置。 Go资源下载 官网： https://golang.org/ 国内资源站台： https://studygolang.com/dl">
+<meta name="twitter:image" content="http://tva1.sinaimg.cn/large/0060lm7Tly1g58fpw2sryj30t20hdjs2.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://easonwy.github.com/2019/03/02/install-centos-virtualbox-network/">
+  <link rel="canonical" href="http://easonwu.me/2019/07/build-go-build-environment.html">
 
 
 
@@ -164,7 +157,7 @@
   };
 </script>
 
-  <title>VirtalBox安装CentOS系统及网络设置 | 光脚码农笔记</title>
+  <title>构建GO语言编译运行环境 | 光脚码农笔记</title>
   
 
 
@@ -302,7 +295,7 @@
         
           
   
-  <li class="menu-item menu-item-about menu-item-active">
+  <li class="menu-item menu-item-about">
     <a href="/about/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
 </li>
@@ -386,7 +379,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://easonwy.github.com/2019/03/02/install-centos-virtualbox-network/">
+    <link itemprop="mainEntityOfPage" href="http://easonwu.me/2019/07/build-go-build-environment.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="翼神">
@@ -403,7 +396,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">VirtalBox安装CentOS系统及网络设置</h1>
+          <h1 class="post-title" itemprop="name headline">构建GO语言编译运行环境</h1>
         
 
         <div class="post-meta">
@@ -415,7 +408,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-02T20:03:12+08:00">2019-03-02</time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-19T09:16:19+08:00">2019-07-19</time>
             
 
             
@@ -436,7 +429,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a></span>
 
                 
                 
@@ -450,7 +443,7 @@
 
           
           
-             <span id="/2019/03/02/install-centos-virtualbox-network/" class="leancloud_visitors" data-flag-title="VirtalBox安装CentOS系统及网络设置">
+             <span id="/2019/07/build-go-build-environment.html" class="leancloud_visitors" data-flag-title="构建GO语言编译运行环境">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -474,8 +467,6 @@
           
 
           
-              <div class="post-description">我们学习linux时经常会使用虚拟机，目前最火的虚拟机产品就是VirtualBox和VMware，VirtualBox因为免费开源深受大家的喜爱，而初学者对于如何在虚拟机中设置网络连接时最困惑的，这篇文章就以virtualbox为例，介绍下如何设置网络让linux可以连接外网和部署内网环境。</div>
-          
 
         </div>
       </header>
@@ -490,79 +481,55 @@
       
 
       
-        <h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3><p>我们学习linux时经常会使用虚拟机，目前最火的虚拟机产品就是VirtualBox和VMware，VirtualBox因为免费开源深受大家的喜爱，而初学者对于如何在虚拟机中设置网络连接时最困惑的，这篇文章就以virtualbox为例，介绍下如何设置网络让linux可以连接外网和部署内网环境。</p>
-<h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><p>安装环境及版本信息:</p>
-<table>
-<thead>
-<tr>
-<th>软件环境</th>
-<th>版本</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>VirtualBox</td>
-<td>6.0.4</td>
-<td><a href="https://download.virtualbox.org/virtualbox/6.0.4/VirtualBox-6.0.4-128413-Win.exe" target="_blank" rel="noopener">https://download.virtualbox.org/virtualbox/6.0.4/VirtualBox-6.0.4-128413-Win.exe</a></td>
-</tr>
-<tr>
-<td>CentOS Minimal</td>
-<td>7.3</td>
-<td><a href="http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso" target="_blank" rel="noopener">http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso</a></td>
-</tr>
-<tr>
-<td>操作系统</td>
-<td>Win 10</td>
-<td>所以此处VirtualBox就下载的时Windows对应的版本。</td>
-</tr>
-</tbody>
-</table>
-<h4 id="VirtualBox安装"><a href="#VirtualBox安装" class="headerlink" title="VirtualBox安装"></a>VirtualBox安装</h4><p>VirtualBox的安装就是普通的windows软件，基本上一路下一步即可。</p>
-<p><img src="https://ws4.sinaimg.cn/large/862078b0gy1g0oqohzhpsj20vh0mzdms.jpg" alt="image"></p>
-<h4 id="在VirtualBox安装CentOS"><a href="#在VirtualBox安装CentOS" class="headerlink" title="在VirtualBox安装CentOS"></a>在VirtualBox安装CentOS</h4><p>虚拟机中安装CentOS其实比较简单，除非有特别的要求，其实就根据向导进行即可。</p>
-<h5 id="加载CentOS镜像文件"><a href="#加载CentOS镜像文件" class="headerlink" title="加载CentOS镜像文件"></a>加载CentOS镜像文件</h5><p>此步骤主要是将CentOS镜像文件加载到VirtualBox，类似我们在Windows安装软件是的ISO光盘文件。具体步骤如下：</p>
-<ol>
-<li>打开VirtualBox，点击管理下拉菜单。</li>
-<li>选择虚拟介质管理选项。</li>
-<li>切换选项页之虚拟光盘。</li>
-<li>点击上方的注册按钮，加载前面下载的ISO文件即可。</li>
-</ol>
-<p><img src="https://wx3.sinaimg.cn/large/862078b0gy1g0ord3tkmmj20x30jk3z2.jpg" alt="image"></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近学习使用grafana的过程中，涉及到需要编译grafana源码的场景，因为grafana是使用go语言进行开发的，因为众所周知的原因，国内很多网站无法访问，导致编译起来比较累，本文主要总结一下如果在Windows和CentOS上进行go语言环境的搭建和配置。</p>
+<h3 id="Go资源下载"><a href="#Go资源下载" class="headerlink" title="Go资源下载"></a>Go资源下载</h3><ul>
+<li>官网： <a href="https://golang.org/" target="_blank" rel="noopener">https://golang.org/</a></li>
+<li>国内资源站台： <a href="https://studygolang.com/dl" target="_blank" rel="noopener">https://studygolang.com/dl</a></li>
+<li>GitHub地址： <a href="https://github.com/golang" target="_blank" rel="noopener">https://github.com/golang</a></li>
+</ul>
+<p>因为go的资源下载地址是google.com的二级域名，国内访问时，如果没有梯子时无法访问的，所以只能透过国内的站台进行下载安装。</p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g58fpw2sryj30t20hdjs2.jpg" alt></p>
+<p>这里我们可以根据我们的操作系统选择对应的安装包。</p>
+<h3 id="GO语言Windows编译环境构建"><a href="#GO语言Windows编译环境构建" class="headerlink" title="GO语言Windows编译环境构建"></a>GO语言Windows编译环境构建</h3><h4 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://studygolang.com/dl/golang/go1.12.7.windows-amd64.msi</span><br></pre></td></tr></table></figure>
+<p>一路next，采用默认安装，安装时会自动在系统环境变量里新建一个名为<code>GOROOT</code>的环境变量，<br>这个变量的值和你<code>go</code>的安装路径一致。这里我们安装在C盘：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Go</span><br></pre></td></tr></table></figure>
+<p>安装程序会自动将<code>C:\Go\bin</code>这个目录加入到系统环境变量的<code>PATH</code>属性上。</p>
+<h4 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h4><p>go代码必须在工作空间内。工作空间是一个目录，其中包含三个子目录：</p>
+<ul>
+<li><code>src</code>里面每一个子目录，就是一个包。包内是go的源码文件</li>
+<li><code>pkg</code>编译后生成的，包的目标文件</li>
+<li><code>bin</code>生成的可执行文件。</li>
+</ul>
+<p>安装完毕后我们需要手动添加一个名为GOPATH的环境变量，值为工作空间的路径，这里我新建了一个<code>F:\go</code>的文件夹作为工作空间。</p>
+<p>接下来我们将<code>go</code>工作空间下的bin文件夹加入系统环境<code>PATH</code>变量中，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PATH=%PATH%;%GOPATH%\bin</span><br></pre></td></tr></table></figure>
+<h4 id="验证命令"><a href="#验证命令" class="headerlink" title="验证命令"></a>验证命令</h4><p>在cmd或powershell中输入<code>$ go version</code>，如果安装成功应该显示类似的提示信息。</p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g58kp6l8yaj30k1033q3u.jpg" alt></p>
+<h3 id="GO语言CentOS编译环境构建"><a href="#GO语言CentOS编译环境构建" class="headerlink" title="GO语言CentOS编译环境构建"></a>GO语言CentOS编译环境构建</h3><h4 id="下载二进制包"><a href="#下载二进制包" class="headerlink" title="下载二进制包"></a>下载二进制包</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://studygolang.com/dl/golang/go1.12.7.linux-amd64.tar.gz</span><br><span class="line">tar -C /usr/local -xzf go1.12.7.linux-amd64.tar.gz</span><br><span class="line">mkdir -p /home/gopath #GOPATH 路径， 需要编译的项目都应该放到该目录</span><br></pre></td></tr></table></figure>
+<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br></pre></td></tr></table></figure>
+<p>在文件末尾增加以下两行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export GOROOT=/usr/local/go</span><br><span class="line">export PATH=$PATH:$GOROOT/bin</span><br></pre></td></tr></table></figure>
+<p>在文件末尾增加以下一行信息，配置GOPATH路径。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export GOPATH=/home/gopath</span><br></pre></td></tr></table></figure>
+<p>执行以下代码，使配置生效：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+<h4 id="查看Go的版本"><a href="#查看Go的版本" class="headerlink" title="查看Go的版本"></a>查看Go的版本</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span>go version</span><br><span class="line">go version go1.12.7 linux/amd64</span><br></pre></td></tr></table></figure>
+<h3 id="Go-Get无反应的解决方案"><a href="#Go-Get无反应的解决方案" class="headerlink" title="Go Get无反应的解决方案"></a>Go Get无反应的解决方案</h3><p>因为国内网络问题，执行<code>go get</code>经常会出现卡死不动的情况，比如我们在命令行执行以下代码，你会发现一只卡在那儿，其实我们的设置都没有问题，只是网络问题导致无法正常访问。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/astaxie/beego</span><br></pre></td></tr></table></figure>
+<h4 id="改HOSTS解决方法"><a href="#改HOSTS解决方法" class="headerlink" title="改HOSTS解决方法"></a><strong>改HOSTS解决方法</strong></h4><p>如果有梯子，那我们可以设置proxy来跳过这个问题，但是如果没有的话，网上有童鞋该hosts文件也有成功的。</p>
+<p>可以先使用<a href="https://www.ipaddress.com/ip-lookup" target="_blank" rel="noopener">IP查询工具</a>查询，然后按以下方法更新。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/hosts</span><br><span class="line">140.82.113.3 github.com</span><br><span class="line">151.101.185.194 github.global.ssl.fastly.net</span><br></pre></td></tr></table></figure>
+<p>然后重启系统，再执行我们的go get命令。</p>
 <blockquote>
-<p>这一步其实也可以到启动虚拟机进行安装时进行，虚拟机安装程序如果找不到对应的镜像文件，会提示选择要加载的安装镜像。</p>
+<p>不过，我更新之后发现也是不行的，还是得下载离线包的方案来解决。</p>
 </blockquote>
-<h5 id="创建虚拟机"><a href="#创建虚拟机" class="headerlink" title="创建虚拟机"></a>创建虚拟机</h5><p>创建虚拟机时主要选择对应的Linux版本，VirutalBox会根据我们输入的系统名称猜测对应的系统类型。</p>
-<p><img src="https://ws4.sinaimg.cn/large/862078b0gy1g0pwkz6n6bj20hw0fx74g.jpg" alt="image"></p>
-<p><img src="https://ws2.sinaimg.cn/large/862078b0gy1g0pwlx6in5j20gb0evq30.jpg" alt="image"></p>
-<h5 id="安装虚拟机"><a href="#安装虚拟机" class="headerlink" title="安装虚拟机"></a>安装虚拟机</h5><p>因为前面2.1步骤我们已经将CentOS镜像加载到虚拟光盘列表中了，所以当我们启动虚拟机时系统会自动选择对应的镜像文件，进行安装。安装过程基本上没什么花头，还是按向导进行即可（这点很赞），只需要注意设定好root账户的密码即可。</p>
-<h5 id="启动虚拟机"><a href="#启动虚拟机" class="headerlink" title="启动虚拟机"></a>启动虚拟机</h5><h4 id="设置网络"><a href="#设置网络" class="headerlink" title="设置网络"></a>设置网络</h4><h5 id="使用NAT借用宿主机网络访问外网"><a href="#使用NAT借用宿主机网络访问外网" class="headerlink" title="使用NAT借用宿主机网络访问外网"></a>使用NAT借用宿主机网络访问外网</h5><p>启动网卡</p>
-<p><code>ip a</code> 查看网卡， 如果有网卡没有启动，  使用<code>ifup xxx</code></p>
-<p><img src="https://ws1.sinaimg.cn/mw690/862078b0gy1g22bvvfqyaj20k20az0su.jpg" alt></p>
-<p>查看网卡信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls /etc/sysconfig/network-scripts/</span><br></pre></td></tr></table></figure>
-<p><img src="https://ws1.sinaimg.cn/mw690/862078b0gy1g22bwzvsvij20js053q2u.jpg" alt></p>
-<p>修改成自动启动网卡 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-enp0s3</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line">BOOTPROTO=dhcp</span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line">NAME=enp0s3</span><br><span class="line">UUID=b2d1d1e3-0275-47cf-80c0-132eade932db</span><br><span class="line">DEVICE=enp0s3</span><br><span class="line">ONBOOT=yes</span><br></pre></td></tr></table></figure>
-<h5 id="HOST-Only设置内网环境"><a href="#HOST-Only设置内网环境" class="headerlink" title="HOST-Only设置内网环境"></a>HOST-Only设置内网环境</h5><p>在VirtualBox上 添加host-only共享网卡</p>
-<p><img src="https://ws1.sinaimg.cn/mw690/862078b0gy1g22c3f8d71j20x807h3ze.jpg" alt></p>
-<p>在虚拟机上添加HostOnly网卡</p>
-<p><img src="https://ws3.sinaimg.cn/mw690/862078b0gy1g22c45kkq0j20k80ca3zd.jpg" alt></p>
-<p>写入UUID 到enp0s8</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uuidgen ifcfg-enp0s8 &gt;&gt; /etc/sysconfig/network-scripts/ifcfg-enp0s8</span><br></pre></td></tr></table></figure>
-<p>修改成自动启动网卡</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-enp0s8</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BOOTPORTO=static</span><br><span class="line">BROADCAST=192.168.56.255</span><br><span class="line">IPADDR=192.168.56.32</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">NETWORK=192.168.56.1</span><br><span class="line">DEFROUTE=yes</span><br><span class="line">PEERDNS=yes</span><br><span class="line">PEERROUTES=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEEFROUTE=yes</span><br><span class="line">IPV6_PEERDNS=yes</span><br><span class="line">IPV6_PEERROUTES=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line">NAME=enp0s8</span><br><span class="line">DEVICE=enp0s8</span><br><span class="line">ONBOOT=yes</span><br><span class="line">UUID=31797a08-32a0-48d5-a137-276fd30ef742</span><br></pre></td></tr></table></figure>
-<h5 id="重启网卡"><a href="#重启网卡" class="headerlink" title="重启网卡"></a>重启网卡</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service network restart</span><br></pre></td></tr></table></figure>
-<h4 id="额外说明"><a href="#额外说明" class="headerlink" title="额外说明"></a>额外说明</h4><p>安装iputils工具，主要用于<code>ifconfig</code>命令，</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install iputils</span><br></pre></td></tr></table></figure>
-<p>安装 ssh 服务, 用于远程登录，比如xshell等工具,</p>
-<p>要确保CentOS7安装了 <code>openssh-server</code>，在终端中输入 <code>yum list installed | grep openssh-server</code></p>
-<p>如果没有输入  <code>yum install openssh-server</code> 安装</p>
-<p>修改 /etc/ssh/sshd_config文件:</p>
-<p><img src="https://ws2.sinaimg.cn/mw690/862078b0gy1g22cog5bojj20jh0b2wej.jpg" alt></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart sshd</span><br></pre></td></tr></table></figure>
+<h4 id="Git-Clone方案"><a href="#Git-Clone方案" class="headerlink" title="Git Clone方案"></a><strong>Git Clone方案</strong></h4><p>golang 在 github 上建立了一个<a href="https://github.com/golang" target="_blank" rel="noopener">镜像库</a>，如 <a href="https://github.com/golang/net即是" target="_blank" rel="noopener">https://github.com/golang/net即是</a> <a href="https://golang.org/x/net" target="_blank" rel="noopener">https://golang.org/x/net</a> 的镜像库。获取 golang.org/x/net 包，其实只需要以下步骤：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p $GOPATH/src/golang.org/x</span><br><span class="line">cd $GOPATH/src/golang.org/x</span><br><span class="line">git clone https://github.com/golang/net.git</span><br></pre></td></tr></table></figure>
+<p>其他的包也可以采用类似方案进行解决。</p>
+<h4 id="go-get-代理设置"><a href="#go-get-代理设置" class="headerlink" title="go get 代理设置"></a>go get 代理设置</h4><p>让go get用上http代理:临时使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">windows:在cmd中使用</span><br><span class="line">//设置临时代理，关闭cmd取消设置</span><br><span class="line">set http_proxy=http://localhost:1080</span><br><span class="line">set https_proxy=http://localhost:1080</span><br><span class="line">//取消代理设置</span><br><span class="line">set http_proxy=</span><br><span class="line">//查看代理设置</span><br><span class="line">set http_proxy</span><br><span class="line">linux:</span><br><span class="line">export http_proxy=http://localhost:1080</span><br><span class="line">export https_proxy=http://localhost:1080</span><br></pre></td></tr></table></figure>
+<p>使用git设置代理为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global https.proxy &quot;127.0.0.1:1080&quot;</span><br><span class="line">//查看为</span><br><span class="line">git config --global https.proxy</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -576,35 +543,14 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\07\19\build-grafana-linux-build-environment\" rel="bookmark">构建Grafana的CentOS编译环境</a></div>
+      <div class="popular-posts-title"><a href="\2019\07\build-grafana-windows-build-environment.html" rel="bookmark">构建Grafana的windows编译环境</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\04\14\install-azkaban-2-5-0-in-centos\" rel="bookmark">Azkaban 2.5.0安装(CentOS)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\2019\04\14\install-gradle-in-centos-7\" rel="bookmark">Install Gradle in Centos 7</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\2019\03\02\install-java-jdk-on-centos7\" rel="bookmark">CentOS 7上安装Java JDK</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\2019\03\02\update-centos-hostname\" rel="bookmark">修改CentOS主机名(hostname)</a></div>
+      <div class="popular-posts-title"><a href="\2019\07\build-grafana-linux-build-environment.html" rel="bookmark">构建Grafana的CentOS编译环境</a></div>
       
     </li>
   
@@ -631,7 +577,7 @@
     <strong>本文作者： </strong>翼神</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://easonwy.github.com/2019/03/02/install-centos-virtualbox-network/" title="VirtalBox安装CentOS系统及网络设置">http://easonwy.github.com/2019/03/02/install-centos-virtualbox-network/</a>
+    <a href="http://easonwu.me/2019/07/build-go-build-environment.html" title="构建GO语言编译运行环境">http://easonwu.me/2019/07/build-go-build-environment.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -644,9 +590,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/centos/" rel="tag"><i class="fa fa-tag"></i> centos</a>
+            <a href="/tags/go/" rel="tag"><i class="fa fa-tag"></i> go</a>
           
-            <a href="/tags/virtualbox/" rel="tag"><i class="fa fa-tag"></i> virtualbox</a>
+            <a href="/tags/environment/" rel="tag"><i class="fa fa-tag"></i> environment</a>
           
         </div>
       
@@ -659,8 +605,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/02/update-centos-hostname/" rel="next" title="修改CentOS主机名(hostname)">
-                <i class="fa fa-chevron-left"></i> 修改CentOS主机名(hostname)
+              <a href="/2019/07/install-grafana-on-centos7.html" rel="next" title="CentOS 7中安装和配置Grafana">
+                <i class="fa fa-chevron-left"></i> CentOS 7中安装和配置Grafana
               </a>
             
           </div>
@@ -669,8 +615,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/14/install-gradle-in-centos-7/" rel="prev" title="Install Gradle in Centos 7">
-                Install Gradle in Centos 7 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/build-grafana-linux-build-environment.html" rel="prev" title="构建Grafana的CentOS编译环境">
+                构建Grafana的CentOS编译环境 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -752,7 +698,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -873,7 +819,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简述"><span class="nav-number">1.</span> <span class="nav-text">简述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装步骤"><span class="nav-number">2.</span> <span class="nav-text">安装步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#VirtualBox安装"><span class="nav-number">2.1.</span> <span class="nav-text">VirtualBox安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在VirtualBox安装CentOS"><span class="nav-number">2.2.</span> <span class="nav-text">在VirtualBox安装CentOS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#加载CentOS镜像文件"><span class="nav-number">2.2.1.</span> <span class="nav-text">加载CentOS镜像文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建虚拟机"><span class="nav-number">2.2.2.</span> <span class="nav-text">创建虚拟机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装虚拟机"><span class="nav-number">2.2.3.</span> <span class="nav-text">安装虚拟机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启动虚拟机"><span class="nav-number">2.2.4.</span> <span class="nav-text">启动虚拟机</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置网络"><span class="nav-number">2.3.</span> <span class="nav-text">设置网络</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用NAT借用宿主机网络访问外网"><span class="nav-number">2.3.1.</span> <span class="nav-text">使用NAT借用宿主机网络访问外网</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HOST-Only设置内网环境"><span class="nav-number">2.3.2.</span> <span class="nav-text">HOST-Only设置内网环境</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#重启网卡"><span class="nav-number">2.3.3.</span> <span class="nav-text">重启网卡</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#额外说明"><span class="nav-number">2.4.</span> <span class="nav-text">额外说明</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go资源下载"><span class="nav-number">2.</span> <span class="nav-text">Go资源下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GO语言Windows编译环境构建"><span class="nav-number">3.</span> <span class="nav-text">GO语言Windows编译环境构建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载安装包"><span class="nav-number">3.1.</span> <span class="nav-text">下载安装包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置环境变量"><span class="nav-number">3.2.</span> <span class="nav-text">设置环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证命令"><span class="nav-number">3.3.</span> <span class="nav-text">验证命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GO语言CentOS编译环境构建"><span class="nav-number">4.</span> <span class="nav-text">GO语言CentOS编译环境构建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载二进制包"><span class="nav-number">4.1.</span> <span class="nav-text">下载二进制包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置环境变量"><span class="nav-number">4.2.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看Go的版本"><span class="nav-number">4.3.</span> <span class="nav-text">查看Go的版本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-Get无反应的解决方案"><span class="nav-number">5.</span> <span class="nav-text">Go Get无反应的解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#改HOSTS解决方法"><span class="nav-number">5.1.</span> <span class="nav-text">改HOSTS解决方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-Clone方案"><span class="nav-number">5.2.</span> <span class="nav-text">Git Clone方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#go-get-代理设置"><span class="nav-number">5.3.</span> <span class="nav-text">go get 代理设置</span></a></li></ol></li></ol></div>
             
 
           </div>
