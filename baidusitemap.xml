@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://easonwu.me/2019/07/install-promethues-on-centos7.html</loc>
+    <lastmod>2019-07-29</lastmod>
+  </url>  <url>
     <loc>http://easonwu.me/2019/07/build-grafana-linux-build-environment.html</loc>
     <lastmod>2019-07-25</lastmod>
   </url>  <url>
@@ -15,9 +18,6 @@
   </url>  <url>
     <loc>http://easonwu.me/2019/07/install-grafana-on-centos7.html</loc>
     <lastmod>2019-07-18</lastmod>
-  </url>  <url>
-    <loc>http://easonwu.me/2019/07/install-promethues-on-centos7.html</loc>
-    <lastmod>2019-07-17</lastmod>
   </url>  <url>
     <loc>http://easonwu.me/2019/07/virtualbox-failed-to-instantiate-clsid.html</loc>
     <lastmod>2019-07-15</lastmod>
